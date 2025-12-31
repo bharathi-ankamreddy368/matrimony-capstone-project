@@ -1,0 +1,20 @@
+
+> frontend@0.0.0 build
+> ng build
+
+- Generating browser application bundles (phase: setup)...
+Γ£ö Browser application bundle generation complete.
+Γ£ö Browser application bundle generation complete.
+
+Error: src/app/components/organizer-dashboard/organizer-dashboard.component.html:76:69 - error TS2339: Property 'viewAttendees' does not exist on type 'OrganizerDashboardComponent'.
+
+76                     <button mat-icon-button color="accent" (click)="viewAttendees(element)" matTooltip="View Attendees">
+                                                                       ~~~~~~~~~~~~~
+
+  src/app/components/organizer-dashboard/organizer-dashboard.component.ts:8:18
+    8     templateUrl: './organizer-dashboard.component.html',
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component OrganizerDashboardComponent.
+
+
+

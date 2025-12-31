@@ -1,0 +1,167 @@
+Workspace extension with invalid name (defaultProject) found.
+    TypeScript compiler options "target" and "useDefineForClassFields" are set to "ES2022" and "false" respectively by the Angular CLI. To control ECMA version and features use the Browerslist configuration. For more information, see https://angular.io/guide/build#configuring-browser-compatibility
+    NOTE: You can set the "target" to "ES2022" in the project's tsconfig to remove this warning.
+
+./src/app/components/organizer-dashboard.component.ts:5:0-36 - Error: Module not found: Error: Can't resolve 'file-saver' in 'C:\Users\ankam\Downloads\capstone project\frontend\src\app\components'
+
+Error: src/app/app.component.ts:15:25 - error TS2341: Property 'token' is private and only accessible within class 'AuthService'.
+
+15       <span *ngIf="auth.token()" style="margin-left:8px">Role: {{auth.getRole()}}</span>
+                           ~~~~~
+
+
+Error: src/app/app.component.ts:15:25 - error TS2349: This expression is not callable.
+  Type 'String' has no call signatures.
+
+15       <span *ngIf="auth.token()" style="margin-left:8px">Role: {{auth.getRole()}}</span>
+                           ~~~~~
+
+
+Error: src/app/app.component.ts:15:25 - error TS2721: Cannot invoke an object which is possibly 'null'.
+
+15       <span *ngIf="auth.token()" style="margin-left:8px">Role: {{auth.getRole()}}</span>
+                           ~~~~~
+
+
+Error: src/app/app.component.ts:16:38 - error TS2341: Property 'token' is private and only accessible within class 'AuthService'.
+
+16       <button mat-button *ngIf="auth.token()" (click)="logout()">Logout</button>
+                                        ~~~~~
+
+
+Error: src/app/app.component.ts:16:38 - error TS2349: This expression is not callable.
+  Type 'String' has no call signatures.
+
+16       <button mat-button *ngIf="auth.token()" (click)="logout()">Logout</button>
+                                        ~~~~~
+
+
+Error: src/app/app.component.ts:16:38 - error TS2721: Cannot invoke an object which is possibly 'null'.
+
+16       <button mat-button *ngIf="auth.token()" (click)="logout()">Logout</button>
+                                        ~~~~~
+
+
+Error: src/app/app.component.ts:17:54 - error TS2341: Property 'token' is private and only accessible within class 'AuthService'.
+
+17       <a mat-button routerLink="/login" *ngIf="!auth.token()">Login</a>
+                                                        ~~~~~
+
+
+Error: src/app/app.component.ts:17:54 - error TS2349: This expression is not callable.
+  Type 'String' has no call signatures.
+
+17       <a mat-button routerLink="/login" *ngIf="!auth.token()">Login</a>
+                                                        ~~~~~
+
+
+Error: src/app/app.component.ts:17:54 - error TS2721: Cannot invoke an object which is possibly 'null'.
+
+17       <a mat-button routerLink="/login" *ngIf="!auth.token()">Login</a>
+                                                        ~~~~~
+
+
+Error: src/app/components/attendee-list-dialog/attendee-list-dialog.component.html:2:1 - error NG8001: 'mat-dialog-content' is not a known element:
+1. If 'mat-dialog-content' is an Angular component, then verify that it is part of this module.
+2. If 'mat-dialog-content' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+
+2 <mat-dialog-content class="mat-typography">
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  src/app/components/attendee-list-dialog/attendee-list-dialog.component.ts:7:18
+    7     templateUrl: './attendee-list-dialog.component.html',
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AttendeeListDialogComponent.
+
+
+Error: src/app/components/attendee-list-dialog/attendee-list-dialog.component.html:5:22 - error NG8002: Can't bind to 'dataSource' since it isn't a known property of 'table'.
+
+5     <table mat-table [dataSource]="attendees" *ngIf="attendees.length > 0" class="mat-elevation-z1">
+                       ~~~~~~~~~~~~~~~~~~~~~~~~
+
+  src/app/components/attendee-list-dialog/attendee-list-dialog.component.ts:7:18
+    7     templateUrl: './attendee-list-dialog.component.html',
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AttendeeListDialogComponent.
+
+
+Error: src/app/components/attendee-list-dialog/attendee-list-dialog.component.html:25:1 - error NG8001: 'mat-dialog-actions' is not a known element:
+1. If 'mat-dialog-actions' is an Angular component, then verify that it is part of this module.
+2. If 'mat-dialog-actions' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+
+25 <mat-dialog-actions align="end">
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  src/app/components/attendee-list-dialog/attendee-list-dialog.component.ts:7:18
+    7     templateUrl: './attendee-list-dialog.component.html',
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AttendeeListDialogComponent.
+
+
+Error: src/app/components/event-edit.component.ts:19:35 - error TS4111: Property 'name' comes from an index signature, so it must be accessed with ['name'].
+
+19         <div *ngIf="form.controls.name.invalid && form.controls.name.touched" style="color:red">Name is required</div>
+                                     ~~~~
+
+
+Error: src/app/components/event-edit.component.ts:19:65 - error TS4111: Property 'name' comes from an index signature, so it must be accessed with ['name'].
+
+19         <div *ngIf="form.controls.name.invalid && form.controls.name.touched" style="color:red">Name is required</div>
+                                                                   ~~~~
+
+
+Error: src/app/components/event-edit.component.ts:25:35 - error TS4111: Property 'venue' comes from an index signature, so it must be accessed with ['venue'].
+
+25         <div *ngIf="form.controls.venue.invalid && form.controls.venue.touched" style="color:red">Venue is required</div>
+                                     ~~~~~
+
+
+Error: src/app/components/event-edit.component.ts:25:66 - error TS4111: Property 'venue' comes from an index signature, so it must be accessed with ['venue'].
+
+25         <div *ngIf="form.controls.venue.invalid && form.controls.venue.touched" style="color:red">Venue is required</div>
+                                                                    ~~~~~
+
+
+Error: src/app/components/event-edit.component.ts:31:35 - error TS4111: Property 'date_time' comes from an index signature, so it must be accessed with ['date_time'].
+
+31         <div *ngIf="form.controls.date_time.invalid && form.controls.date_time.touched" style="color:red">Date/time is required</div>
+                                     ~~~~~~~~~
+
+
+Error: src/app/components/event-edit.component.ts:31:70 - error TS4111: Property 'date_time' comes from an index signature, so it must be accessed with ['date_time'].
+
+31         <div *ngIf="form.controls.date_time.invalid && form.controls.date_time.touched" style="color:red">Date/time is required</div>
+                                                                        ~~~~~~~~~
+
+
+Error: src/app/components/event-edit.component.ts:42:35 - error TS4111: Property 'capacity' comes from an index signature, so it must be accessed with ['capacity'].
+
+42         <div *ngIf="form.controls.capacity.invalid && form.controls.capacity.touched" style="color:red">Capacity must be > 0</div>
+                                     ~~~~~~~~
+
+
+Error: src/app/components/event-edit.component.ts:42:69 - error TS4111: Property 'capacity' comes from an index signature, so it must be accessed with ['capacity'].
+
+42         <div *ngIf="form.controls.capacity.invalid && form.controls.capacity.touched" style="color:red">Capacity must be > 0</div>
+                                                                       ~~~~~~~~
+
+
+Error: src/app/components/login.component.ts:35:31 - error TS2554: Expected 1 arguments, but got 2.
+
+35     this.auth.login(username, password).subscribe({
+                                 ~~~~~~~~
+
+
+Error: src/app/components/organizer-dashboard.component.ts:6:24 - error TS2307: Cannot find module 'file-saver' or its corresponding type declarations.
+
+6 import { saveAs } from 'file-saver';
+                         ~~~~~~~~~~~~
+
+
+Error: src/app/components/register.component.ts:47:34 - error TS2554: Expected 1 arguments, but got 3.
+
+47     this.auth.register(username, password, role).subscribe({
+                                    ~~~~~~~~~~~~~~
+
+
+

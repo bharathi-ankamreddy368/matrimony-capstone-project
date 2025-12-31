@@ -1,0 +1,26 @@
+<div *ngIf="currentEvent.id" class="edit-form">
+    <h2>Event Details</h2>
+
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>{{ currentEvent.name }}</mat-card-title>
+            <mat-card-subtitle>{{ currentEvent.category }} - {{ currentEvent.date_time | date:'medium'
+                }}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image
+            src="{{ currentEvent.image_url || 'https://material.angular.io/assets/img/examples/shiba2.jpg' }}"
+            alt="Event image">
+        <mat-card-content>
+            <h3>Description</h3>
+            <p>{{ currentEvent.description }}</p>
+            <h3>Venue</h3>
+            <p>{{ currentEvent.venue }}</p>
+            <h3>Seats Available</h3>
+            <p>{{ currentEvent.capacity - (currentEvent.tickets_sold || 0) }} / {{ currentEvent.capacity }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="bookTicket()">BOOK TICKETS</button>
+            <button mat-button color="warn" routerLink="/events">BACK</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

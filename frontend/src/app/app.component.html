@@ -1,0 +1,9 @@
+<mat-toolbar color="primary">
+  <span>Smart Event Planner</span>
+  <span class="spacer"></span>
+  <button mat-button routerLink="/events" *ngIf="auth.isAuthenticated()">Events</button>
+  <button mat-button routerLink="/organizer/dashboard" *ngIf="auth.isOrganizer()">Organizer</button>
+  <button mat-button (click)="auth.logout()" *ngIf="auth.isAuthenticated()">Logout</button>
+</mat-toolbar>
+
+<router-outlet></router-outlet>

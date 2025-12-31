@@ -1,0 +1,20 @@
+<div class="booking-container">
+    <h2>Book Tickets</h2>
+    <mat-card *ngIf="currentEvent.id">
+        <mat-card-header>
+            <mat-card-title>{{ currentEvent.name }}</mat-card-title>
+            <mat-card-subtitle>{{ currentEvent.venue }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <p>Available Capacity: {{ currentEvent.capacity }}</p>
+            <mat-form-field appearance="outline">
+                <mat-label>Number of Tickets</mat-label>
+                <input matInput type="number" [(ngModel)]="ticketsToBook" min="1" [max]="currentEvent.capacity">
+            </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="confirmBooking()">CONFIRM BOOKING</button>
+            <button mat-button (click)="getEvent(currentEvent.id + '')">CANCEL</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

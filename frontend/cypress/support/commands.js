@@ -1,0 +1,3 @@
+import 'cypress-file-upload';
+
+// ...existing code...
