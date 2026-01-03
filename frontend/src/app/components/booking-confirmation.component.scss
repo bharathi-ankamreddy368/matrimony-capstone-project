@@ -1,0 +1,184 @@
+.confirmation-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 1rem;
+    background-color: var(--bg-color);
+    min-height: 100vh;
+}
+
+.success-message {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.check-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    color: #10b981;
+    /* Emerald 500 */
+    margin-bottom: 1rem;
+}
+
+.success-message h2 {
+    font-size: 2.5rem;
+    margin: 0 0 0.5rem 0;
+}
+
+.success-message p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+/* Ticket Stub Design */
+.ticket-stub {
+    display: flex;
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    width: 100%;
+    max-width: 700px;
+    overflow: hidden;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.stub-left {
+    flex: 2;
+    padding: 2rem;
+    border-right: 2px dashed #e2e8f0;
+    position: relative;
+}
+
+/* Visual notch effect using radial gradient if supported, simple dash otherwise */
+.stub-left::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 20px;
+    height: 20px;
+    background-color: var(--bg-color);
+    border-radius: 50%;
+}
+
+.stub-left::before {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    width: 20px;
+    height: 20px;
+    background-color: var(--bg-color);
+    border-radius: 50%;
+}
+
+.stub-header {
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.stub-branding {
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.event-name {
+    font-size: 1.5rem;
+    margin: 0 0 1.5rem 0;
+    color: var(--text-main);
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-item .label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.info-item .value {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--text-main);
+}
+
+.stub-footer {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #f1f5f9;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-style: italic;
+}
+
+.stub-right {
+    flex: 1;
+    background: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    position: relative;
+}
+
+.qr-code {
+    width: 150px;
+    /* Force consistent size */
+    height: 150px;
+    mix-blend-mode: multiply;
+    /* Helps blend with bg */
+}
+
+.admit-one {
+    margin-top: 1rem;
+    font-weight: 900;
+    font-size: 1.2rem;
+    color: #e2e8f0;
+    letter-spacing: 2px;
+    transform: rotate(-90deg);
+    position: absolute;
+    right: -20px;
+    top: 50%;
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+    .ticket-stub {
+        flex-direction: column;
+    }
+
+    .stub-left {
+        border-right: none;
+        border-bottom: 2px dashed #e2e8f0;
+    }
+
+    .admit-one {
+        display: none;
+    }
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}

@@ -1,0 +1,119 @@
+.booking-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 100px);
+    padding: 2rem;
+}
+
+.booking-card {
+    width: 100%;
+    max-width: 500px;
+    padding: 1rem;
+}
+
+.card-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.card-header h2 {
+    font-size: 1.75rem;
+    margin: 0;
+}
+
+.event-summary {
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.event-summary h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1.25rem;
+    color: var(--primary-dark);
+}
+
+.meta-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.meta-row span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.meta-row mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+.divider {
+    height: 1px;
+    background: #e2e8f0;
+    margin: 1rem 0;
+}
+
+.price-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.price-value {
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.seats-value {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.seats-value.low-stock {
+    color: #ef4444;
+}
+
+.ticket-input {
+    width: 100%;
+}
+
+.total-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 2px dashed #e2e8f0;
+}
+
+.total-section span:first-child {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+}
+
+.total-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+mat-card-actions {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem !important;
+}
+
+.loading-state {
+    display: flex;
+    justify-content: center;
+    margin-top: 4rem;
+}

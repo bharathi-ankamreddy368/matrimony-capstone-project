@@ -7,60 +7,13 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-event-create',
-  template: `
-    <h2>Create Event</h2>
-    <form [formGroup]="form" (ngSubmit)="submit()">
-      <mat-form-field appearance="fill" style="display:block">
-        <mat-label>Name</mat-label>
-        <input matInput formControlName="name" />
-        <mat-error *ngIf="form.controls.name.invalid && form.controls.name.touched">Name is required</mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill" style="display:block">
-        <mat-label>Venue</mat-label>
-        <input matInput formControlName="venue" />
-        <mat-error *ngIf="form.controls.venue.invalid && form.controls.venue.touched">Venue is required</mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill" style="display:block">
-        <mat-label>Date & Time</mat-label>
-        <input matInput formControlName="date_time" placeholder="YYYY-MM-DD HH:mm:ss" />
-        <mat-error *ngIf="form.controls.date_time.invalid && form.controls.date_time.touched">Date/time is required</mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill" style="display:block">
-        <mat-label>Category</mat-label>
-        <input matInput formControlName="category" />
-      </mat-form-field>
-
-      <mat-form-field appearance="fill" style="display:block">
-        <mat-label>Capacity</mat-label>
-        <input matInput type="number" formControlName="capacity" />
-        <mat-error *ngIf="form.controls.capacity.invalid && form.controls.capacity.touched">Capacity must be > 0</mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill" style="display:block">
-        <mat-label>Ticket Price</mat-label>
-        <input matInput type="number" step="0.01" formControlName="ticket_price" />
-      </mat-form-field>
-
-      <div style="margin:8px 0">
-        <label>Image (optional)</label>
-        <input type="file" (change)="onFile($event)" accept="image/*" />
-        <div *ngIf="preview" style="margin-top:8px">
-          <img [src]="preview" style="max-width:240px; display:block" />
-        </div>
-        <mat-progress-bar *ngIf="progress !== null" [value]="progress"></mat-progress-bar>
-      </div>
-
-      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || submitting">Create</button>
-      <button mat-button type="button" (click)="cancel()">Cancel</button>
-    </form>
-  `
+  templateUrl: './event-create.component.html',
+  styleUrls: ['./event-create.component.scss']
 })
 export class EventCreateComponent {
   form = this.fb.group({
     name: ['', Validators.required],
+    description: [''],
     venue: ['', Validators.required],
     date_time: ['', Validators.required],
     category: [''],
@@ -72,7 +25,12 @@ export class EventCreateComponent {
   progress: number | null = null;
   submitting = false;
 
-  constructor(private fb: FormBuilder, private events: EventsService, private snack: MatSnackBar, private router: Router) {}
+  constructor(private fb: FormBuilder, private events: EventsService, private snack: MatSnackBar, private router: Router) { }
+
+  clearFile() {
+    this.selected = undefined;
+    this.preview = null;
+  }
 
   onFile(e: Event) {
     const input = e.target as HTMLInputElement;

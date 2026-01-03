@@ -14,6 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { AppComponent } from './app.component';
 import { EventListComponent } from './components/event-list.component';
@@ -48,7 +49,6 @@ import { MaterialModule } from './shared/material.module';
     AdminDashboardComponent,
     NotAuthorizedComponent,
     EventEditComponent,
-    EventEditComponent,
     EventCreateComponent,
     AttendeeListDialogComponent
   ],
@@ -69,7 +69,8 @@ import { MaterialModule } from './shared/material.module';
     MatIconModule,
     MatFormFieldModule,
     MatProgressBarModule,
-    MaterialModule
+    MaterialModule,
+    MatMenuModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

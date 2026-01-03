@@ -1,5 +1,41 @@
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
+/* =========================================
+   1. VARIABLES & THEME SETUP
+   ========================================= */
+:root {
+    /* Brand Colors - Modern Gradient Palette */
+    --primary-color: #6366f1;
+    /* Indigo 500 */
+    --primary-dark: #4338ca;
+    /* Indigo 700 */
+    --primary-light: #818cf8;
+    /* Indigo 400 */
+
+    --accent-color: #ec4899;
+    /* Pink 500 */
+    --accent-hover: #db2777;
+    /* Pink 600 */
+
+    --bg-color: #f8fafc;
+    /* Slate 50 */
+    --card-bg: #ffffff;
+    --text-main: #0f172a;
+    /* Slate 900 */
+    --text-muted: #64748b;
+    /* Slate 500 */
+
+    --gradient-brand: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --radius-md: 12px;
+    --radius-lg: 16px;
+}
+
+/* =========================================
+   2. GLOBAL RESET & TYPOGRAPHY
+   ========================================= */
 html,
 body {
     height: 100%;
@@ -7,9 +43,152 @@ body {
 
 body {
     margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0 0 1rem 0;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: var(--primary-dark);
+}
+
+/* =========================================
+   3. UTILITY CLASSES
+   ========================================= */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
 }
 
 .spacer {
     flex: 1 1 auto;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text-gradient {
+    background: var(--gradient-brand);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.section-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: var(--gradient-brand);
+    border-radius: 2px;
+}
+
+/* =========================================
+   4. MATERIAL OVERRIDES (PREMIUM LOOK)
+   ========================================= */
+.mat-mdc-card {
+    border-radius: var(--radius-md) !important;
+    box-shadow: var(--shadow-md) !important;
+    border: none !important;
+    background-color: var(--card-bg) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mat-mdc-card:hover {
+    /* Only apply hover effect if it contains a link or is interactive, 
+     but safe to apply generically for "premium" feel */
+}
+
+.mat-mdc-raised-button.mat-primary {
+    background: var(--primary-color) !important;
+    border-radius: 8px !important;
+    padding: 0 24px !important;
+    height: 44px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.5px !important;
+    box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.4) !important;
+}
+
+.mat-mdc-raised-button.mat-accent {
+    background: var(--accent-color) !important;
+    border-radius: 8px !important;
+}
+
+.mat-toolbar.mat-primary {
+    background: var(--card-bg) !important;
+    color: var(--text-main) !important;
+    box-shadow: var(--shadow-sm) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.mat-toolbar .logo {
+    font-weight: 900;
+    font-size: 1.5rem;
+    background: var(--gradient-brand);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Form Fields */
+.mat-mdc-form-field {
+    width: 100%;
+}
+
+.mat-mdc-text-field-wrapper {
+    background-color: #f1f5f9 !important;
+    /* Slate 100 */
+    border-radius: 8px 8px 0 0 !important;
+}
+
+/* Snack Bar */
+.mat-mdc-snack-bar-container .mdc-snackbar__surface {
+    background-color: var(--text-main) !important;
+    border-radius: 8px !important;
+}
+
+/* Responsive Grid Helper */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 1rem 0;
 }

@@ -1,0 +1,56 @@
+<div class="booking-container container">
+    <mat-card class="booking-card" *ngIf="event">
+        <div class="card-header">
+            <h2 class="text-gradient">Complete Your Booking</h2>
+        </div>
+
+        <mat-card-content>
+            <!-- Event Summary -->
+            <div class="event-summary">
+                <h3>{{event.name}}</h3>
+                <div class="meta-row">
+                    <span><mat-icon>calendar_today</mat-icon> {{event.date_time | date:'medium'}}</span>
+                    <span><mat-icon>location_on</mat-icon> {{event.venue}}</span>
+                </div>
+                <div class="divider"></div>
+                <div class="price-info">
+                    <span>Price per ticket</span>
+                    <span class="price-value">{{event.ticket_price | currency}}</span>
+                </div>
+                <div class="price-info">
+                    <span>Seats Available</span>
+                    <span class="seats-value"
+                        [class.low-stock]="event.available_seats < 10">{{event.available_seats}}</span>
+                </div>
+            </div>
+
+            <!-- Booking Form -->
+            <form [formGroup]="form" class="booking-form">
+                <mat-form-field appearance="outline" class="ticket-input">
+                    <mat-label>Number of Tickets</mat-label>
+                    <input matInput type="number" formControlName="tickets" min="1" [max]="event.available_seats">
+                    <mat-error *ngIf="t.hasError('required')">Required</mat-error>
+                    <mat-error *ngIf="t.hasError('min')">Must be at least 1</mat-error>
+                    <mat-error *ngIf="(form.value.tickets || 0) > event.available_seats">Not enough seats</mat-error>
+                </mat-form-field>
+
+                <div class="total-section">
+                    <span>Total Amount</span>
+                    <span class="total-price">{{ total() | currency }}</span>
+                </div>
+            </form>
+        </mat-card-content>
+
+        <mat-card-actions align="end">
+            <button mat-button (click)="cancel()">Cancel</button>
+            <button mat-raised-button color="primary" (click)="book()"
+                [disabled]="form.invalid || (form.value.tickets || 0) > event.available_seats">
+                Confirm Booking
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>
+
+<div *ngIf="!event" class="loading-state">
+    <mat-spinner diameter="40"></mat-spinner>
+</div>

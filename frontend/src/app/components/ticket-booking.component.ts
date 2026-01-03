@@ -7,19 +7,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-ticket-booking',
-  template: `
-    <h2>Book Tickets</h2>
-    <div *ngIf="event">
-      <div>Price per ticket: {{event.ticket_price | currency}}</div>
-      <div>Available seats: {{event.available_seats}}</div>
-      Tickets: <input type="number" [formControl]="t" min="1" />
-      <div *ngIf="t.hasError('required')" style="color:red">Tickets is required</div>
-      <div *ngIf="t.hasError('min')" style="color:red">Tickets must be greater than 0</div>
-      <div *ngIf="(form.value.tickets || 0) > event.available_seats" style="color:red">Not enough seats available</div>
-      <div>Total: {{ total() | currency }}</div>
-      <button mat-raised-button color="primary" (click)="book()" [disabled]="form.invalid">Confirm Booking</button>
-    </div>
-  `
+  templateUrl: './ticket-booking.component.html',
+  styleUrls: ['./ticket-booking.component.scss']
 })
 export class TicketBookingComponent implements OnInit {
   form = this.fb.group({ tickets: [1, [Validators.required, Validators.min(1)]] });
@@ -69,5 +58,8 @@ export class TicketBookingComponent implements OnInit {
         this.snack.open(err.error?.error || 'Booking failed', 'OK', { duration: 3000 });
       }
     });
+  }
+  cancel() {
+    this.router.navigate(['/events', this.event?.id]);
   }
 }

@@ -1,0 +1,107 @@
+<div class="page-header">
+    <div class="container">
+        <h1 class="text-gradient">Discover Events</h1>
+        <p class="subtitle">Join the community and experience the best events around you.</p>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Filters Section -->
+    <mat-card class="filters-card">
+        <div class="filters-container">
+            <mat-form-field appearance="outline" class="search-field">
+                <mat-label>Search Events</mat-label>
+                <mat-icon matPrefix>search</mat-icon>
+                <input matInput placeholder="Name, venue, or category" [(ngModel)]="searchTerm"
+                    (input)="applyFilters()">
+            </mat-form-field>
+
+            <div class="filter-group">
+                <mat-form-field appearance="outline">
+                    <mat-label>Category</mat-label>
+                    <input matInput placeholder="All Categories" [(ngModel)]="category" (input)="applyFilters()">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Location</mat-label>
+                    <mat-icon matPrefix>location_on</mat-icon>
+                    <input matInput placeholder="City or Venue" [(ngModel)]="venue" (input)="applyFilters()">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Date</mat-label>
+                    <input matInput type="date" [(ngModel)]="date" (change)="applyFilters()">
+                </mat-form-field>
+            </div>
+
+            <button mat-button color="warn" (click)="clear()" *ngIf="searchTerm || category || venue || date">
+                Reset Filters
+            </button>
+        </div>
+    </mat-card>
+
+    <!-- Empty State -->
+    <div *ngIf="pagedEvents.length === 0" class="empty-state">
+        <mat-icon>event_busy</mat-icon>
+        <h3>No events found</h3>
+        <p>Try adjusting your search or filters to find what you're looking for.</p>
+        <button mat-stroked-button color="primary" (click)="clear()">Clear Filters</button>
+    </div>
+
+    <!-- Events Grid -->
+    <div class="events-grid" *ngIf="pagedEvents.length > 0">
+        <mat-card *ngFor="let e of pagedEvents" class="event-card">
+            <div class="event-image-container">
+                <img [src]="e.image_url ? (apiUrl + e.image_url) : 'assets/placeholder-event.jpg'" alt="{{e.name}}"
+                    onerror="this.src='https://placehold.co/600x400/e2e8f0/64748b?text=Event'">
+                <div class="category-badge">{{e.category || 'General'}}</div>
+            </div>
+
+            <mat-card-content>
+                <div class="event-date">
+                    <mat-icon>calendar_today</mat-icon>
+                    {{e.date_time | date:'mediumDate'}} • {{e.date_time | date:'shortTime'}}
+                </div>
+
+                <h3 class="event-title" [routerLink]="['/events', e.id]">{{e.name}}</h3>
+
+                <div class="event-venue">
+                    <mat-icon>location_on</mat-icon>
+                    {{e.venue}}
+                </div>
+
+                <p class="event-description">
+                    {{ (e.description || '') | slice:0:120 }}{{e.description?.length > 120 ? '...' : ''}}
+                </p>
+
+                <div class="event-meta">
+                    <div class="price-tag">
+                        {{e.ticket_price | currency}}
+                    </div>
+                    <div class="seats-info" [class.sold-out]="e.available_seats <= 0">
+                        {{e.available_seats}} seats left
+                    </div>
+                </div>
+            </mat-card-content>
+
+            <mat-card-actions align="end">
+                <button mat-stroked-button color="primary" [routerLink]="['/events', e.id]">Details</button>
+                <button mat-raised-button color="accent" [routerLink]="['/events', e.id, 'book']"
+                    [disabled]="e.available_seats <= 0">
+                    {{e.available_seats > 0 ? 'Book Ticket' : 'Sold Out'}}
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination" *ngIf="totalPages > 1">
+        <button mat-icon-button (click)="prevPage()" [disabled]="page<=1">
+            <mat-icon>chevron_left</mat-icon>
+        </button>
+        <span class="page-info">{{page}} / {{totalPages}}</span>
+        <button mat-icon-button (click)="nextPage()" [disabled]="page>=totalPages">
+            <mat-icon>chevron_right</mat-icon>
+        </button>
+    </div>
+</div>

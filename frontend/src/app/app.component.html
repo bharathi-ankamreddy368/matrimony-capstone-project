@@ -1,9 +1,52 @@
 <mat-toolbar color="primary">
-  <span>Smart Event Planner</span>
+  <span class="logo">Smart Event Planner</span>
   <span class="spacer"></span>
-  <button mat-button routerLink="/events" *ngIf="auth.isAuthenticated()">Events</button>
-  <button mat-button routerLink="/organizer/dashboard" *ngIf="auth.isOrganizer()">Organizer</button>
-  <button mat-button (click)="auth.logout()" *ngIf="auth.isAuthenticated()">Logout</button>
+
+  <ng-container *ngIf="auth.isAuthenticated(); else guestLinks">
+    <!-- Attendee Links -->
+    <a mat-button routerLink="/events" routerLinkActive="active-link">Browse Events</a>
+    <a mat-button routerLink="/my-bookings" *ngIf="auth.getRole()==='attendee'" routerLinkActive="active-link">My
+      Bookings</a>
+
+    <!-- Organizer Links -->
+    <a mat-button routerLink="/organizer/dashboard" *ngIf="auth.getRole()==='organizer'"
+      routerLinkActive="active-link">Organizer Dashboard</a>
+
+    <!-- Admin Link -->
+    <a mat-button routerLink="/admin" *ngIf="auth.getRole()==='admin'" routerLinkActive="active-link">Admin</a>
+
+    <span class="role-badge" *ngIf="auth.isAuthenticated()">{{auth.getRole() | titlecase}}</span>
+    <button mat-raised-button color="accent" (click)="logout()">Logout</button>
+  </ng-container>
+
+  <ng-template #guestLinks>
+    <a mat-button routerLink="/events" routerLinkActive="active-link">Browse Events</a>
+    <a mat-button routerLink="/login" routerLinkActive="active-link">Login</a>
+    <a mat-raised-button color="accent" routerLink="/register">Get Started</a>
+  </ng-template>
 </mat-toolbar>
 
-<router-outlet></router-outlet>
+<div class="main-content">
+  <router-outlet></router-outlet>
+</div>
+
+<style>
+  .active-link {
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  .role-badge {
+    margin: 0 16px;
+    font-size: 0.8rem;
+    padding: 4px 8px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .main-content {
+    min-height: calc(100vh - 64px);
+    background: linear-gradient(to bottom, #f8fafc, #ffffff);
+  }
+</style>

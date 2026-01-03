@@ -1,0 +1,176 @@
+.event-details-container {
+    min-height: 100vh;
+    margin-top: -1rem;
+    /* Pull up to join toolbar if needed, or adjust based on layout */
+}
+
+.hero-section {
+    position: relative;
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    background-color: #1e293b;
+    color: white;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 4rem;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(15, 23, 42, 0.3), rgba(15, 23, 42, 0.9));
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+}
+
+.category-pill {
+    background: var(--accent-color);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: inline-block;
+}
+
+.hero-title {
+    font-size: 3rem;
+    color: white;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-meta {
+    display: flex;
+    gap: 2rem;
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.hero-meta span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.main-content-wrapper {
+    margin-top: -3rem;
+    /* Overlap hero */
+    position: relative;
+    z-index: 2;
+    margin-bottom: 4rem;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.description-card {
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.description-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-main);
+    white-space: pre-wrap;
+}
+
+.share-section {
+    margin-top: 2rem;
+}
+
+.share-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.booking-card {
+    position: sticky;
+    top: 2rem;
+    padding: 1.5rem;
+    border-top: 4px solid var(--primary-color) !important;
+}
+
+.price-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.price-header .label {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.price-header .price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.free-badge {
+    background: var(--primary-light);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+.availability-status {
+    margin-bottom: 1.5rem;
+}
+
+.status-text {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.book-btn {
+    width: 100%;
+    height: 48px !important;
+    font-size: 1.1rem !important;
+}
+
+.terms-text {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+    gap: 1rem;
+    color: var(--text-muted);
+}

@@ -1,0 +1,94 @@
+<div class="create-container container">
+    <mat-card class="create-card">
+        <div class="card-header">
+            <h2 class="text-gradient">Create New Event</h2>
+            <p class="subtitle">Fill in the details to publish your next big event.</p>
+        </div>
+
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <div class="form-grid">
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Event Name</mat-label>
+                    <input matInput formControlName="name" placeholder="Ex. Tech Conference 2024">
+                    <mat-error *ngIf="form.controls.name.invalid">Name is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Venue / Location</mat-label>
+                    <mat-icon matPrefix>location_on</mat-icon>
+                    <input matInput formControlName="venue" placeholder="Ex. Convention Center">
+                    <mat-error *ngIf="form.controls.venue.invalid">Venue is required</mat-error>
+                </mat-form-field>
+
+                <div class="row-2">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Date & Time</mat-label>
+                        <mat-icon matPrefix>calendar_today</mat-icon>
+                        <!-- Note: Using text/datetime-local basic input for simplicity, ideally use MatDatepicker but text matches existing logic -->
+                        <input matInput formControlName="date_time" placeholder="YYYY-MM-DD HH:mm:ss">
+                        <mat-hint>Format: YYYY-MM-DD HH:mm:ss</mat-hint>
+                        <mat-error *ngIf="form.controls.date_time.invalid">Required</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Category</mat-label>
+                        <input matInput formControlName="category" placeholder="Ex. Workshop, Music">
+                    </mat-form-field>
+                </div>
+
+                <div class="row-2">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Capacity</mat-label>
+                        <input matInput type="number" formControlName="capacity" min="1">
+                        <mat-error *ngIf="form.controls.capacity.invalid">Min 1</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Ticket Price ($)</mat-label>
+                        <input matInput type="number" step="0.01" formControlName="ticket_price" min="0">
+                        <span matPrefix>$&nbsp;</span>
+                    </mat-form-field>
+                </div>
+
+                <!-- Description could be added here if backend supports it (it does: 'description' TEXT) -->
+                <!-- But the current component TS doesn't have it in form. Let's stick to existing TS logic 
+             or add it if I want to be thorough. The prompt said "Event name, description...". 
+             The TS form definition MISSES description! I should add it. -->
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Description</mat-label>
+                    <textarea matInput formControlName="description" rows="4"
+                        placeholder="Tell people about your event..."></textarea>
+                </mat-form-field>
+            </div>
+
+            <div class="media-section">
+                <label class="file-label">Event Image</label>
+                <div class="file-input-wrapper">
+                    <button mat-stroked-button type="button" (click)="fileInput.click()">
+                        <mat-icon>cloud_upload</mat-icon> Upload Image
+                    </button>
+                    <span class="file-name" *ngIf="selected">{{selected.name}}</span>
+                    <span class="file-name placeholder" *ngIf="!selected">No file chosen</span>
+                    <input #fileInput type="file" (change)="onFile($event)" accept="image/*" style="display:none">
+                </div>
+
+                <div *ngIf="preview" class="image-preview">
+                    <img [src]="preview" alt="Preview">
+                    <button mat-icon-button color="warn" class="remove-btn" type="button" (click)="clearFile()">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </div>
+
+                <mat-progress-bar *ngIf="progress !== null" [value]="progress" mode="determinate"></mat-progress-bar>
+            </div>
+
+            <div class="form-actions">
+                <button mat-button type="button" (click)="cancel()">Cancel</button>
+                <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || submitting">
+                    {{submitting ? 'Creating...' : 'Create Event'}}
+                </button>
+            </div>
+        </form>
+    </mat-card>
+</div>

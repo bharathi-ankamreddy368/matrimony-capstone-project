@@ -4,7 +4,7 @@ export const initDb = async () => {
     try {
         await db.query(`
             CREATE TABLE IF NOT EXISTS events (
-                id INT AUTO_INCREMENT PRIMARY KEY,
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
                 organizer_id INT NOT NULL,
                 name VARCHAR(255) NOT NULL,
                 description TEXT,
@@ -19,7 +19,7 @@ export const initDb = async () => {
 
         await db.query(`
             CREATE TABLE IF NOT EXISTS bookings (
-                id INT AUTO_INCREMENT PRIMARY KEY,
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
                 event_id INT NOT NULL,
                 attendee_id INT NOT NULL,
                 tickets_booked INT NOT NULL,

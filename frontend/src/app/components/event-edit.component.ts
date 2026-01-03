@@ -8,71 +8,25 @@ import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-event-edit',
-  template: `
-    <h2>Edit Event</h2>
-    <form [formGroup]="form" (ngSubmit)="save()">
-      <div>
-        <label>
-          Name
-          <input formControlName="name" />
-        </label>
-        <div *ngIf="form.controls.name.invalid && form.controls.name.touched" style="color:red">Name is required</div>
-
-        <label>
-          Venue
-          <input formControlName="venue" />
-        </label>
-        <div *ngIf="form.controls.venue.invalid && form.controls.venue.touched" style="color:red">Venue is required</div>
-
-        <label>
-          Date & Time (YYYY-MM-DD HH:mm:ss)
-          <input formControlName="date_time" />
-        </label>
-        <div *ngIf="form.controls.date_time.invalid && form.controls.date_time.touched" style="color:red">Date/time is required</div>
-
-        <label>
-          Category
-          <input formControlName="category" />
-        </label>
-
-        <label>
-          Capacity
-          <input type="number" formControlName="capacity" />
-        </label>
-        <div *ngIf="form.controls.capacity.invalid && form.controls.capacity.touched" style="color:red">Capacity must be > 0</div>
-
-        <label>
-          Ticket Price
-          <input type="number" step="0.01" formControlName="ticket_price" />
-        </label>
-      </div>
-
-      <div style="margin-top:8px;">
-        <label>Image</label>
-        <input type="file" (change)="onFile($event)" accept="image/*" />
-        <div *ngIf="previewUrl" style="margin-top:8px">
-          <img [src]="previewUrl" style="max-width:200px; display:block; margin-bottom:8px"/>
-        </div>
-        <div *ngIf="uploadProgress !== null">
-          <mat-progress-spinner mode="determinate" [value]="uploadProgress" diameter="40"></mat-progress-spinner>
-          <span>{{uploadProgress}}%</span>
-        </div>
-      </div>
-
-      <div style="margin-top:12px;">
-        <button type="submit" [disabled]="form.invalid">Save</button>
-        <button type="button" (click)="cancel()">Cancel</button>
-      </div>
-    </form>
-  `
+  templateUrl: './event-edit.component.html',
+  styleUrls: ['./event-edit.component.scss']
 })
 export class EventEditComponent implements OnInit {
-  form: FormGroup;
   eventId = 0;
   selectedFile?: File;
   previewUrl: string | null = null;
   uploadProgress: number | null = null;
   apiUrl = environment.apiUrl;
+
+  form = this.fb.group({
+    name: ['', Validators.required],
+    description: [''],
+    venue: ['', Validators.required],
+    date_time: ['', Validators.required],
+    category: [''],
+    capacity: [1, [Validators.required, Validators.min(1)]],
+    ticket_price: [0, [Validators.min(0)]]
+  });
 
   constructor(
     private fb: FormBuilder,
@@ -80,22 +34,14 @@ export class EventEditComponent implements OnInit {
     private router: Router,
     private events: EventsService,
     private snack: MatSnackBar
-  ) {
-    this.form = this.fb.group({
-      name: ['', Validators.required],
-      venue: ['', Validators.required],
-      date_time: ['', Validators.required],
-      category: [''],
-      capacity: [1, [Validators.required, Validators.min(1)]],
-      ticket_price: [0, [Validators.min(0)]]
-    });
-  }
+  ) { }
 
   ngOnInit() {
     this.eventId = Number(this.route.snapshot.paramMap.get('id'));
     this.events.getEvent(this.eventId).subscribe(e => {
       this.form.patchValue({
         name: e.name,
+        description: e.description,
         venue: e.venue,
         date_time: e.date_time,
         category: e.category,
