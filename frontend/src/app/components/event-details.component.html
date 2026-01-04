@@ -46,7 +46,8 @@
                     <mat-card-content>
                         <div class="price-header">
                             <span class="label">Ticket Price</span>
-                            <span class="price" *ngIf="event.ticket_price > 0">{{event.ticket_price | currency}}</span>
+                            <span class="price" *ngIf="event.ticket_price > 0">{{event.ticket_price |
+                                currency:'INR':'symbol-narrow'}}</span>
                             <span class="free-badge" *ngIf="!event.ticket_price || event.ticket_price == 0">Free</span>
                         </div>
 

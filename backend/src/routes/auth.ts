@@ -16,7 +16,7 @@ router.post('/register', registerValidators, validateRequest, async (req: Reques
   if (existing) return res.status(409).json({ error: 'username already exists' });
   const hash = await bcrypt.hash(password, 10);
   const user = await userModel.createUser(username, hash, role || 'attendee');
-  const token = jwt.sign({ id: user.id, username: user.username, role: user.role }, process.env.JWT_SECRET || 'secret', { expiresIn: '8h' });
+  const token = jwt.sign({ id: user.id, username: user.username, role: user.role }, process.env.JWT_SECRET || 'capstone_secret_key', { expiresIn: '8h' });
   res.status(201).json({ token, user: { id: user.id, username: user.username, role: user.role } });
 });
 
@@ -28,7 +28,11 @@ router.post('/login', loginValidators, validateRequest, async (req: Request, res
   if (!user) return res.status(401).json({ error: 'Invalid credentials' });
   const ok = await bcrypt.compare(password, user.password_hash);
   if (!ok) return res.status(401).json({ error: 'Invalid credentials' });
-  const token = jwt.sign({ id: user.id, username: user.username, role: user.role }, process.env.JWT_SECRET || 'secret', { expiresIn: '8h' });
+
+  const secret = process.env.JWT_SECRET || 'capstone_secret_key';
+  const token = jwt.sign({ id: user.id, username: user.username, role: user.role }, secret, { expiresIn: '8h' });
+
+  console.log(`[AuthRoute] User logged in: ${user.username}, Role: ${user.role}`);
   res.json({ token, user: { id: user.id, username: user.username, role: user.role } });
 });
 

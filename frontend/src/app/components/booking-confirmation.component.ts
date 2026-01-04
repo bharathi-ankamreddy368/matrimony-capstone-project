@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BookingsService } from '../services/bookings.service';
+import { BookingService } from '../services/booking.service';
 
 @Component({
   selector: 'app-booking-confirmation',
@@ -9,10 +9,10 @@ import { BookingsService } from '../services/bookings.service';
 })
 export class BookingConfirmationComponent implements OnInit {
   booking: any;
-  constructor(private route: ActivatedRoute, private bookings: BookingsService) { }
+  constructor(private route: ActivatedRoute, private bookingService: BookingService) { }
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.bookings.getBooking(id).subscribe(b => this.booking = b);
+    this.bookingService.getById(id).subscribe(b => this.booking = b);
   }
   downloadQr() {
     if (!this.booking?.qr) return;

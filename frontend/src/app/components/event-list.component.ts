@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { EventsService } from '../services/events.service';
+import { EventService } from '../services/event.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-event-list',
@@ -16,13 +17,13 @@ export class EventListComponent implements OnInit {
   searchTerm = '';
   page = 1;
   pageSize = 6;
-  apiUrl = (window as any).__env?.apiUrl || 'http://localhost:3000';
+  apiUrl = environment.apiUrl.replace('/api', '');
 
-  constructor(private eventsService: EventsService) { }
+  constructor(private eventService: EventService) { }
   ngOnInit() { this.load(); }
 
   async load() {
-    this.eventsService.getEvents({ category: this.category, date: this.date, venue: this.venue }).subscribe(e => {
+    this.eventService.getAll({ category: this.category, date: this.date, venue: this.venue }).subscribe(e => {
       this.events = e;
       this.applyFilters();
     });

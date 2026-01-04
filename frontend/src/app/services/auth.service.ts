@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 export class AuthService {
     private loggedIn = new BehaviorSubject<boolean>(false);
     private role = new BehaviorSubject<string>('guest'); // guest, attendee, organizer
-    private apiUrl = 'http://localhost:3000/api/users';
+    private apiUrl = 'http://localhost:3000/api/auth';
     private currentUserId: number | null = null;
     private token: string | null = null;
 
@@ -44,14 +44,14 @@ export class AuthService {
             tap((res: any) => {
                 this.token = res.token;
                 localStorage.setItem('token', res.token);
-                localStorage.setItem('role', res.role);
-                localStorage.setItem('userId', String(res.id));
+                localStorage.setItem('role', res.user.role);
+                localStorage.setItem('userId', String(res.user.id));
 
                 this.loggedIn.next(true);
-                this.role.next(res.role);
-                this.currentUserId = res.id;
+                this.role.next(res.user.role);
+                this.currentUserId = res.user.id;
 
-                if (res.role === 'organizer') {
+                if (res.user.role === 'organizer') {
                     this.router.navigate(['/organizer/dashboard']);
                 } else {
                     this.router.navigate(['/events']);

@@ -1,89 +1,70 @@
-<div class="edit-container container">
-    <mat-card class="edit-card">
-        <div class="card-header">
-            <h2 class="text-gradient">Edit Event</h2>
-            <p class="subtitle">Update the details of your event.</p>
-        </div>
-
+<div class="event-form-container">
+    <h2>Edit Event</h2>
+    <mat-card>
         <form [formGroup]="form" (ngSubmit)="save()">
-            <div class="form-grid">
-                <mat-form-field appearance="outline" class="full-width">
+            <div class="form-row">
+                <mat-form-field appearance="outline">
                     <mat-label>Event Name</mat-label>
-                    <input matInput formControlName="name">
-                    <mat-error *ngIf="form.controls.name.invalid">Name is required</mat-error>
+                    <input matInput formControlName="name" required>
+                    <mat-error *ngIf="form.get('name')?.hasError('required')">Name is required</mat-error>
                 </mat-form-field>
-
-                <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Venue / Location</mat-label>
-                    <mat-icon matPrefix>location_on</mat-icon>
-                    <input matInput formControlName="venue">
-                    <mat-error *ngIf="form.controls.venue.invalid">Venue is required</mat-error>
-                </mat-form-field>
-
-                <div class="row-2">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Date & Time</mat-label>
-                        <mat-icon matPrefix>calendar_today</mat-icon>
-                        <input matInput formControlName="date_time" placeholder="YYYY-MM-DD HH:mm:ss">
-                        <mat-hint>Format: YYYY-MM-DD HH:mm:ss</mat-hint>
-                        <mat-error *ngIf="form.controls.date_time.invalid">Required</mat-error>
-                    </mat-form-field>
-
-                    <mat-form-field appearance="outline">
-                        <mat-label>Category</mat-label>
-                        <input matInput formControlName="category">
-                    </mat-form-field>
-                </div>
-
-                <div class="row-2">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Capacity</mat-label>
-                        <input matInput type="number" formControlName="capacity" min="1">
-                        <mat-error *ngIf="form.controls.capacity.invalid">Min 1</mat-error>
-                    </mat-form-field>
-
-                    <mat-form-field appearance="outline">
-                        <mat-label>Ticket Price ($)</mat-label>
-                        <input matInput type="number" step="0.01" formControlName="ticket_price" min="0">
-                        <span matPrefix>$&nbsp;</span>
-                    </mat-form-field>
-                </div>
-
-                <!-- Description field - adding it for consistency even if not in original form group initially, 
-             assuming backend ignores extra fields or I update TS to include it if needed. 
-             Checking EventEditComponent.ts -> it does NOT have description in FormGroup.
-             I should probably ADD it to TS as well to match consistency. -->
-
-                <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Description</mat-label>
-                    <textarea matInput formControlName="description" rows="4"></textarea>
+                <mat-form-field appearance="outline">
+                    <mat-label>Category</mat-label>
+                    <mat-select formControlName="category">
+                        <mat-option value="Music">Music</mat-option>
+                        <mat-option value="Workshop">Workshop</mat-option>
+                        <mat-option value="Conference">Conference</mat-option>
+                        <mat-option value="Meetup">Meetup</mat-option>
+                        <mat-option value="Other">Other</mat-option>
+                    </mat-select>
                 </mat-form-field>
             </div>
 
-            <div class="media-section">
-                <label class="file-label">Event Image</label>
-                <div class="file-input-wrapper">
-                    <button mat-stroked-button type="button" (click)="fileInput.click()">
-                        <mat-icon>cloud_upload</mat-icon> Change Image
-                    </button>
-                    <span class="file-name" *ngIf="selectedFile">{{selectedFile.name}}</span>
-                    <span class="file-name placeholder" *ngIf="!selectedFile">No new file chosen</span>
-                    <input #fileInput type="file" (change)="onFile($event)" accept="image/*" style="display:none">
-                </div>
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Description</mat-label>
+                <textarea matInput formControlName="description" rows="3"></textarea>
+            </mat-form-field>
 
-                <div *ngIf="previewUrl" class="image-preview">
-                    <img [src]="previewUrl" alt="Preview">
-                </div>
-
-                <mat-progress-bar *ngIf="uploadProgress !== null" [value]="uploadProgress"
-                    mode="determinate"></mat-progress-bar>
+            <div class="form-row">
+                <mat-form-field appearance="outline">
+                    <mat-label>Venue</mat-label>
+                    <input matInput formControlName="venue" required>
+                    <mat-error *ngIf="form.get('venue')?.hasError('required')">Venue is required</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Date & Time</mat-label>
+                    <input matInput type="datetime-local" formControlName="date_time" required>
+                    <mat-error *ngIf="form.get('date_time')?.hasError('required')">Date is required</mat-error>
+                </mat-form-field>
             </div>
 
-            <div class="form-actions">
-                <button mat-button type="button" (click)="cancel()">Cancel</button>
+            <div class="form-row">
+                <mat-form-field appearance="outline">
+                    <mat-label>Capacity</mat-label>
+                    <input matInput type="number" formControlName="capacity" min="1" required>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Ticket Price</mat-label>
+                    <input matInput type="number" formControlName="ticket_price" min="0">
+                    <span matPrefix>$&nbsp;</span>
+                </mat-form-field>
+            </div>
+
+            <div class="file-upload">
+                <label>Event Image (Optional)</label>
+                <input type="file" (change)="onFile($event)" accept="image/*">
+                <img *ngIf="previewUrl" [src]="previewUrl" class="preview-img">
+            </div>
+
+            <div *ngIf="uploadProgress !== null">
+                <mat-progress-bar mode="determinate" [value]="uploadProgress"></mat-progress-bar>
+            </div>
+
+            <div class="actions">
                 <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
                     Save Changes
                 </button>
+                <button mat-button type="button" (click)="cancel()">Cancel</button>
             </div>
         </form>
     </mat-card>

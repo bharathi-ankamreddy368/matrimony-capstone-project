@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { EventsService } from '../services/events.service';
+import { EventService } from '../services/event.service';
 import { Location } from '@angular/common';
 
 @Component({
@@ -11,10 +11,10 @@ import { Location } from '@angular/common';
 export class EventDetailsComponent implements OnInit {
   event: any;
   apiUrl = (window as any).__env?.apiUrl || 'http://localhost:3000';
-  constructor(private route: ActivatedRoute, private events: EventsService, private loc: Location) { }
+  constructor(private route: ActivatedRoute, private eventService: EventService, private loc: Location) { }
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.events.getEvent(id).subscribe(e => this.event = e);
+    this.eventService.get(id).subscribe(e => this.event = e);
   }
   shareEmail() {
     const subject = encodeURIComponent(`Check out this event: ${this.event.name}`);

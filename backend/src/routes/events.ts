@@ -19,9 +19,9 @@ const upload = multer({
   }
 });
 
+router.get('/organizer', authMiddleware, requireRole('organizer'), ctrl.listOrganizerEvents);
 router.get('/', ctrl.listEvents);
 router.get('/:id', ctrl.getEvent);
-router.get('/organizer', authMiddleware, requireRole('organizer'), ctrl.listOrganizerEvents);
 
 // Organizer-only
 router.post('/', authMiddleware, requireRole('organizer'), createEventValidators, validateRequest, ctrl.createEvent);

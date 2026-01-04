@@ -3,11 +3,11 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export const migrate = async () => {
-  const DB_NAME = process.env.DB_NAME || 'smart_event_planner';
+  const DB_NAME = process.env.DB_NAME || 'event_planner_final';
   const host = process.env.DB_HOST || 'localhost';
   const port = Number(process.env.DB_PORT || 3306);
   const user = process.env.DB_USER || 'root';
-  const password = process.env.DB_PASSWORD || '';
+  const password = process.env.DB_PASSWORD || 'mysql123';
 
   const conn = await mysql.createConnection({ host, port, user, password });
   try {

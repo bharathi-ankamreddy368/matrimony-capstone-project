@@ -1,40 +1,33 @@
 
+import pool from '../db';
+import { RowDataPacket, ResultSetHeader } from 'mysql2';
 
-export interface UserRow {
-  id?: number;
+export interface UserRow extends RowDataPacket {
+  id: number;
   username: string;
   password_hash: string;
-  role?: 'organizer' | 'attendee' | 'admin';
-  created_at?: string;
-}
-
-const users: any[] = [];
-let nextId = 1;
-
-export interface UserRow {
-  id?: number;
-  username: string;
-  password_hash: string;
-  role?: 'organizer' | 'attendee' | 'admin';
+  role: 'organizer' | 'attendee' | 'admin';
   created_at?: string;
 }
 
 export const createUser = async (username: string, password_hash: string, role: 'organizer' | 'attendee' | 'admin' = 'attendee') => {
-  const newUser = {
-    id: nextId++,
+  const [result] = await pool.query<ResultSetHeader>(
+    `INSERT INTO users (username, password_hash, role) VALUES (?, ?, ?)`,
+    [username, password_hash, role]
+  );
+  return {
+    id: result.insertId,
     username,
-    password_hash,
-    role,
-    created_at: new Date().toISOString()
+    role
   };
-  users.push(newUser);
-  return newUser;
 };
 
 export const getUserById = async (id: number) => {
-  return users.find(u => u.id === id);
+  const [rows] = await pool.query<UserRow[]>(`SELECT * FROM users WHERE id = ?`, [id]);
+  return rows[0];
 };
 
 export const findUserByUsername = async (username: string) => {
-  return users.find(u => u.username === username);
+  const [rows] = await pool.query<UserRow[]>(`SELECT * FROM users WHERE username = ?`, [username]);
+  return rows[0];
 };

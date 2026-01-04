@@ -45,7 +45,7 @@ export class RegisterComponent {
     if (this.form.invalid) return;
     const { username, password, role } = this.form.value;
     this.auth.register({ username, password, role }).subscribe({
-      next: () => this.router.navigate(['/events']),
+      next: () => this.router.navigate(['/login']),
       error: err => this.snack.open(err.error?.error || 'Registration failed', 'OK', { duration: 3000 })
     });
   }

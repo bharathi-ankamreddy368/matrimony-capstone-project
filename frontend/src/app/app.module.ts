@@ -29,7 +29,6 @@ import { AdminDashboardComponent } from './components/admin-dashboard.component'
 import { NotAuthorizedComponent } from './components/not-authorized.component';
 import { EventEditComponent } from './components/event-edit.component';
 import { EventCreateComponent } from './components/event-create.component';
-import { AttendeeListDialogComponent } from './components/attendee-list-dialog/attendee-list-dialog.component';
 
 import { AuthInterceptor } from './services/auth.interceptor';
 import { ErrorInterceptor } from './services/error.interceptor';
@@ -49,8 +48,7 @@ import { MaterialModule } from './shared/material.module';
     AdminDashboardComponent,
     NotAuthorizedComponent,
     EventEditComponent,
-    EventCreateComponent,
-    AttendeeListDialogComponent
+    EventCreateComponent
   ],
   imports: [
     BrowserModule,

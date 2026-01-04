@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "username": "sana@gmail.coom",
+    "password_hash": "$2a$10$kGalOEqqo2QV6l6fw.G1ru6mzfxPY14Yza/OhLQZqoIfxINKXIn.e",
+    "role": "organizer",
+    "created_at": "2026-01-03T20:32:15.000Z"
+  },
+  {
+    "id": 2,
+    "username": "dimpu@gmail.com",
+    "password_hash": "$2a$10$BKtFTZg0ujdUBGq0Wgo3X./UHt6g3p9qTpTYtHvaGUBgVy56IoRey",
+    "role": "organizer",
+    "created_at": "2026-01-03T20:34:28.000Z"
+  },
+  {
+    "id": 3,
+    "username": "magie@gmail.com",
+    "password_hash": "$2a$10$ge6Njgg1EPtBka5kTOHSxOy5f.rZUyJ836EPyZOJ2/0VYkcRxdwoC",
+    "role": "organizer",
+    "created_at": "2026-01-03T21:18:55.000Z"
+  },
+  {
+    "id": 4,
+    "username": "test_org",
+    "password_hash": "$2a$10$6J3xSysjtIF.WyyMqN7X3..Kdf9IsJrQM7bpr34TxmLj7Z0Ndkxui",
+    "role": "organizer",
+    "created_at": "2026-01-03T21:27:12.000Z"
+  },
+  {
+    "id": 5,
+    "username": "malie@gmail.com",
+    "password_hash": "$2a$10$xqJSqIXXW9BA1jHb5YVPyOPzNIcLriphFLTUJOuT4RK2EFnPoAaYa",
+    "role": "attendee",
+    "created_at": "2026-01-03T21:33:20.000Z"
+  }
+]

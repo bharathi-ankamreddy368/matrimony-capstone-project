@@ -1,55 +1,27 @@
 <div class="confirmation-container container" *ngIf="booking">
-    <div class="success-message">
-        <mat-icon class="check-icon">check_circle</mat-icon>
-        <h2 class="text-gradient">Booking Confirmed!</h2>
-        <p>Your ticket has been booked successfully. Please save the details below.</p>
-    </div>
+    <mat-card class="simple-ticket">
+        <h2 class="confirm-title">Booking Confirmed</h2>
 
-    <div class="ticket-stub">
-        <div class="stub-left">
-            <div class="stub-header">
-                <span class="stub-branding">EVENT TICKET</span>
-                <span class="stub-id">#{{booking.id}}</span>
+        <div class="confirm-details">
+            <div class="detail-row">
+                <span class="label">Event:</span>
+                <span class="value">{{booking.event_name}}</span>
             </div>
-
-            <div class="stub-body">
-                <h3 class="event-name">Event Booking #{{booking.id}}</h3>
-                <!-- Note: We might want the real event name here, but the API returns booking. 
-             Ideally the booking object includes the event name or we fetch it. 
-             For now, we'll display the IDs and price as per existing logic. -->
-
-                <div class="info-grid">
-                    <div class="info-item">
-                        <span class="label">Event ID</span>
-                        <span class="value">{{booking.event_id}}</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="label">Tickets</span>
-                        <span class="value">{{booking.tickets_booked}} Adult(s)</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="label">Total Price</span>
-                        <span class="value">{{booking.total_price | currency}}</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="label">Date Booked</span>
-                        <span class="value">{{booking.booking_time | date:'shortDate'}}</span>
-                    </div>
-                </div>
+            <div class="detail-row">
+                <span class="label">Tickets:</span>
+                <span class="value">{{booking.tickets_booked}}</span>
             </div>
-
-            <div class="stub-footer">
-                <span class="footer-note">Scan QR code at entry</span>
+            <div class="detail-row">
+                <span class="label">Total Price:</span>
+                <span class="value">{{booking.total_price | currency:'INR':'symbol-narrow'}}</span>
             </div>
         </div>
 
-        <div class="stub-right">
-            <div class="qr-section">
-                <img [src]="booking.qr" alt="Entry QR Code" class="qr-code">
-            </div>
-            <div class="admit-one">ADMIT ONE</div>
+        <div class="qr-label">QR Code</div>
+        <div class="qr-wrapper">
+            <img [src]="booking.qr" alt="QR Code" class="qr-img">
         </div>
-    </div>
+    </mat-card>
 
     <div class="action-buttons">
         <button mat-raised-button color="primary" (click)="downloadQr()">

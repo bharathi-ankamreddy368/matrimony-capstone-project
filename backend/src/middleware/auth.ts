@@ -17,15 +17,27 @@ declare global {
   }
 }
 
+export interface AuthRequest extends Request {
+  user?: AuthPayload;
+}
+
 export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const auth = req.header('Authorization') || '';
   const token = auth.startsWith('Bearer ') ? auth.slice(7) : null;
-  if (!token) return res.status(401).json({ error: 'Missing token' });
+
+  if (!token) {
+    console.log('[AuthMiddleware] Missing token');
+    return res.status(401).json({ error: 'Missing token' });
+  }
+
   try {
-    const payload = jwt.verify(token, process.env.JWT_SECRET || 'secret') as AuthPayload;
+    const secret = process.env.JWT_SECRET || 'capstone_secret_key';
+    const payload = jwt.verify(token, secret) as AuthPayload;
+    console.log('[AuthMiddleware] Token verified for user:', payload.username);
     req.user = payload;
     next();
-  } catch {
+  } catch (err: any) {
+    console.error('[AuthMiddleware] Token verification failed:', err.message);
     return res.status(401).json({ error: 'Invalid token' });
   }
 };

@@ -44,7 +44,12 @@ export const createBooking = async (b: BookingRow) => {
 };
 
 export const getBookingById = async (id: number) => {
-  const [rows] = await pool.query(`SELECT * FROM bookings WHERE id = ?`, [id]);
+  const [rows] = await pool.query(`
+    SELECT b.*, e.name as event_name 
+    FROM bookings b 
+    JOIN events e ON b.event_id = e.id 
+    WHERE b.id = ?
+  `, [id]);
   // @ts-ignore
   return (rows as any[])[0];
 };
@@ -56,7 +61,13 @@ export const listBookingsByEvent = async (eventId: number) => {
 };
 
 export const listBookingsByAttendee = async (attendeeId: number) => {
-  const [rows] = await pool.query(`SELECT * FROM bookings WHERE attendee_id = ? ORDER BY booking_time DESC`, [attendeeId]);
+  const [rows] = await pool.query(`
+    SELECT b.*, e.name as event_name 
+    FROM bookings b 
+    JOIN events e ON b.event_id = e.id 
+    WHERE b.attendee_id = ? 
+    ORDER BY b.booking_time DESC
+  `, [attendeeId]);
   // @ts-ignore
   return (rows as any[]);
 };

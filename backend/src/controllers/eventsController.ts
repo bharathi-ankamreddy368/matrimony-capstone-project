@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { AuthRequest } from '../middleware/auth.middleware';
+import { AuthRequest } from '../middleware/auth';
 import * as model from '../models/eventModel';
 import { unlink } from 'fs/promises';
 import path from 'path';
@@ -21,6 +21,7 @@ export const listEvents = async (req: Request, res: Response) => {
 
 export const getEvent = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
+  if (isNaN(id)) return res.status(400).json({ error: 'Invalid event ID' });
   const ev = await model.getEventById(id);
   if (!ev) return res.status(404).json({ error: 'Event not found' });
   const seats = await model.getAvailableSeats(id);
@@ -32,6 +33,7 @@ export const createEvent = async (req: Request, res: Response) => {
   if (!body.name || !body.venue || !body.date_time) return res.status(400).json({ error: 'name, venue and date_time are required' });
   if (!body.capacity || Number(body.capacity) <= 0) return res.status(400).json({ error: 'capacity must be > 0' });
   const organizer_id = req.user ? Number(req.user.id) : undefined;
+  if (organizer_id === undefined || isNaN(organizer_id)) return res.status(401).json({ error: 'Invalid organizer ID' });
   try {
     const created = await model.createEvent({
       organizer_id: organizer_id as number,
@@ -70,6 +72,7 @@ export const listOrganizerEvents = async (req: AuthRequest, res: Response) => {
 
 export const updateEvent = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
+  if (isNaN(id)) return res.status(400).json({ error: 'Invalid event ID' });
   const exists = await model.getEventById(id);
   if (!exists) return res.status(404).json({ error: 'Event not found' });
   if (!ensureOwnerOrAdmin(req as AuthRequest, exists)) return res.status(403).json({ error: 'Forbidden' });
@@ -88,6 +91,7 @@ export const updateEvent = async (req: Request, res: Response) => {
 
 export const deleteEvent = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
+  if (isNaN(id)) return res.status(400).json({ error: 'Invalid event ID' });
   const exists = await model.getEventById(id);
   if (!exists) return res.status(404).json({ error: 'Event not found' });
   if (!ensureOwnerOrAdmin(req as AuthRequest, exists)) return res.status(403).json({ error: 'Forbidden' });
@@ -97,6 +101,7 @@ export const deleteEvent = async (req: Request, res: Response) => {
 
 export const cancelEvent = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
+  if (isNaN(id)) return res.status(400).json({ error: 'Invalid event ID' });
   const ev = await model.getEventById(id);
   if (!ev) return res.status(404).json({ error: 'Event not found' });
   if (!ensureOwnerOrAdmin(req as AuthRequest, ev)) return res.status(403).json({ error: 'Forbidden' });
@@ -106,6 +111,7 @@ export const cancelEvent = async (req: Request, res: Response) => {
 
 export const uploadImage = async (req: Request, res: Response) => {
   const id = Number(req.params.id);
+  if (isNaN(id)) return res.status(400).json({ error: 'Invalid event ID' });
   const ev = await model.getEventById(id);
   if (!ev) return res.status(404).json({ error: 'Event not found' });
   if (!ensureOwnerOrAdmin(req as AuthRequest, ev)) return res.status(403).json({ error: 'Forbidden' });

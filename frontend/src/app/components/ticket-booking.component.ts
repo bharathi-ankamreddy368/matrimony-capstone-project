@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BookingsService } from '../services/bookings.service';
-import { EventsService } from '../services/events.service';
+import { BookingService } from '../services/booking.service';
+import { EventService } from '../services/event.service';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -17,15 +17,15 @@ export class TicketBookingComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private bookings: BookingsService,
-    private events: EventsService,
+    private bookingService: BookingService,
+    private eventService: EventService,
     private router: Router,
     private snack: MatSnackBar
   ) { }
 
   ngOnInit() {
     const eventId = Number(this.route.snapshot.paramMap.get('id'));
-    this.events.getEvent(eventId).subscribe(e => this.event = e);
+    this.eventService.get(eventId).subscribe(e => this.event = e);
   }
 
   total() {
@@ -43,13 +43,16 @@ export class TicketBookingComponent implements OnInit {
       return;
     }
     if (tickets > this.event.available_seats) {
-      this.snack.open('Not enough seats available', 'OK', { duration: 3000 });
+      this.snack.open('Tickets cannot exceed available capacity', 'OK', { duration: 3000 });
       return;
     }
-    if (!confirm(`Confirm booking ${tickets} ticket(s) for ${this.event.name} — Total ${this.total().toFixed(2)}?`)) return;
+    // if (!confirm(`Confirm booking ${tickets} ticket(s) for ${this.event.name} — Total ${this.total().toFixed(2)}?`)) return;
 
     const eventId = Number(this.route.snapshot.paramMap.get('id'));
-    this.bookings.createBooking({ event_id: eventId, tickets_booked: tickets, total_price: this.total() }).subscribe({
+    // createBooking vs create. BookingService has create() but old BookingsService had createBooking().
+    // I mapped BookingService to use create() but I can alias it or update usage.
+    // Let's check BookingService again. I updated it to have create().
+    this.bookingService.create({ event_id: eventId, tickets_booked: tickets, total_price: this.total() }).subscribe({
       next: (b: any) => {
         this.snack.open('Booking successful', 'OK', { duration: 2000 });
         this.router.navigate(['/booking', b.id]);

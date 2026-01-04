@@ -19,11 +19,21 @@ app.use(cors({ origin: process.env.FRONTEND_ORIGIN || 'http://localhost:4200' })
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
 // routes
-app.use('/health', healthRouter);
-app.use('/auth', authRouter);
-app.use('/events', eventsRouter);
-app.use('/bookings', bookingsRouter);
-app.use('/admin', adminRouter);
+app.use('/api/health', healthRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/events', eventsRouter);
+app.use('/api/bookings', bookingsRouter);
+app.use('/api/admin', adminRouter);
+
+import { upload } from './middleware/upload';
+app.post('/api/upload', upload.single('image'), (req: Request, res: Response) => {
+  if (!req.file) {
+    return res.status(400).json({ error: 'No file uploaded' });
+  }
+  // Return the URL relative to the server
+  const url = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+  res.json({ url });
+});
 
 // 404
 app.use((_req: Request, res: Response) => {
