@@ -1,0 +1,85 @@
+<div class="event-details-container" *ngIf="event; else loading">
+    <!-- Hero Section -->
+    <div class="hero-section"
+        [style.backgroundImage]="'url(' + (event.image_url ? (apiUrl + event.image_url) : 'assets/placeholder-event-hero.jpg') + ')'">
+        <div class="hero-overlay"></div>
+        <div class="hero-content container">
+            <span class="category-pill">{{event.category || 'Event'}}</span>
+            <h1 class="hero-title">{{event.name}}</h1>
+            <div class="hero-meta">
+                <span><mat-icon>calendar_today</mat-icon> {{event.date_time | date:'fullDate'}}</span>
+                <span><mat-icon>access_time</mat-icon> {{event.date_time | date:'shortTime'}}</span>
+                <span><mat-icon>location_on</mat-icon> {{event.venue}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container main-content-wrapper">
+        <div class="content-grid">
+            <!-- Left Column: Details -->
+            <div class="details-column">
+                <mat-card class="description-card glass-card">
+                    <mat-card-header>
+                        <mat-card-title>About the Event</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p class="description-text">{{event.description || 'No description provided.'}}</p>
+                    </mat-card-content>
+                </mat-card>
+
+                <section class="share-section">
+                    <h3>Share this Event</h3>
+                    <div class="share-buttons">
+                        <button mat-stroked-button (click)="shareEmail()">
+                            <mat-icon>email</mat-icon> Share via Email
+                        </button>
+                        <button mat-stroked-button (click)="goBack()">
+                            <mat-icon>arrow_back</mat-icon> Back to Events
+                        </button>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column: Booking Action (Sticky) -->
+            <div class="booking-column">
+                <mat-card class="booking-card glass-card">
+                    <mat-card-content>
+                        <div class="price-header">
+                            <span class="label">Ticket Price</span>
+                            <span class="price" *ngIf="event.ticket_price > 0">{{event.ticket_price |
+                                currency:'INR':'symbol-narrow'}}</span>
+                            <span class="free-badge" *ngIf="!event.ticket_price || event.ticket_price == 0">Free</span>
+                        </div>
+
+                        <div class="availability-status">
+                            <mat-progress-bar mode="determinate"
+                                [value]="(event.capacity - event.available_seats) / event.capacity * 100"
+                                [color]="event.available_seats < 10 ? 'warn' : 'primary'">
+                            </mat-progress-bar>
+                            <div class="status-text">
+                                <span>{{event.available_seats}} spots remaining</span>
+                                <span class="capacity-total">Capacity: {{event.capacity}}</span>
+                            </div>
+                        </div>
+
+                        <button mat-raised-button color="accent" class="book-btn"
+                            [routerLink]="['/events', event.id, 'book']" [disabled]="event.available_seats <= 0">
+                            {{ event.available_seats > 0 ? 'Book My Ticket' : 'Sold Out' }}
+                        </button>
+
+                        <p class="terms-text">
+                            By booking, you agree to the event terms and conditions.
+                        </p>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #loading>
+    <div class="loading-container">
+        <mat-spinner diameter="40"></mat-spinner>
+        <p>Loading event details...</p>
+    </div>
+</ng-template>

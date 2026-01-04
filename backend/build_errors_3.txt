@@ -1,0 +1,14 @@
+
+> capstone-backend@0.1.0 build
+> tsc -p tsconfig.json
+
+src/app.ts(4,20): error TS2307: Cannot find module 'morgan' or its corresponding type declarations.
+src/app.ts(5,20): error TS2307: Cannot find module 'multer' or its corresponding type declarations.
+src/middleware/validate.ts(2,34): error TS2307: Cannot find module 'express-validator' or its corresponding type declarations.
+src/middleware/validate.ts(7,39): error TS7006: Parameter 'err' implicitly has an 'any' type.
+src/middleware/validators.ts(1,29): error TS2307: Cannot find module 'express-validator' or its corresponding type declarations.
+src/models/eventModel.ts(75,10): error TS2488: Type 'QueryResult' must have a '[Symbol.iterator]()' method that returns an iterator.
+src/routes/events.ts(4,20): error TS2307: Cannot find module 'multer' or its corresponding type declarations.
+src/routes/events.ts(12,16): error TS7006: Parameter '_req' implicitly has an 'any' type.
+src/routes/events.ts(12,22): error TS7006: Parameter 'file' implicitly has an 'any' type.
+src/routes/events.ts(12,28): error TS7006: Parameter 'cb' implicitly has an 'any' type.

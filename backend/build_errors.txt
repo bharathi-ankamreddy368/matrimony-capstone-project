@@ -1,0 +1,25 @@
+
+> capstone-backend@0.1.0 build
+> tsc -p tsconfig.json
+
+error TS6059: File 'C:/Users/ankam/Downloads/capstone project/backend/check_db.ts' is not under 'rootDir' 'C:/Users/ankam/Downloads/capstone project/backend/src'. 'rootDir' is expected to contain all source files.
+  The file is in the program because:
+    Matched by default include pattern '**/*'
+error TS6059: File 'C:/Users/ankam/Downloads/capstone project/backend/create_users_table.ts' is not under 'rootDir' 'C:/Users/ankam/Downloads/capstone project/backend/src'. 'rootDir' is expected to contain all source files.
+  The file is in the program because:
+    Matched by default include pattern '**/*'
+error TS6059: File 'C:/Users/ankam/Downloads/capstone project/backend/tests/auth.test.ts' is not under 'rootDir' 'C:/Users/ankam/Downloads/capstone project/backend/src'. 'rootDir' is expected to contain all source files.
+  The file is in the program because:
+    Matched by default include pattern '**/*'
+error TS6059: File 'C:/Users/ankam/Downloads/capstone project/backend/tests/bookings.test.ts' is not under 'rootDir' 'C:/Users/ankam/Downloads/capstone project/backend/src'. 'rootDir' is expected to contain all source files.
+  The file is in the program because:
+    Matched by default include pattern '**/*'
+error TS6059: File 'C:/Users/ankam/Downloads/capstone project/backend/tests/e2e.test.ts' is not under 'rootDir' 'C:/Users/ankam/Downloads/capstone project/backend/src'. 'rootDir' is expected to contain all source files.
+  The file is in the program because:
+    Matched by default include pattern '**/*'
+error TS6059: File 'C:/Users/ankam/Downloads/capstone project/backend/tests/events.test.ts' is not under 'rootDir' 'C:/Users/ankam/Downloads/capstone project/backend/src'. 'rootDir' is expected to contain all source files.
+  The file is in the program because:
+    Matched by default include pattern '**/*'
+error TS6059: File 'C:/Users/ankam/Downloads/capstone project/backend/tests/setup.ts' is not under 'rootDir' 'C:/Users/ankam/Downloads/capstone project/backend/src'. 'rootDir' is expected to contain all source files.
+  The file is in the program because:
+    Matched by default include pattern '**/*'

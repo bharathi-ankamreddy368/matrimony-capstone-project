@@ -1,0 +1,40 @@
+<div class="confirmation-container">
+    <div class="simple-ticket">
+        <div class="ticket-header">
+            <h2 class="confirm-title">Booking Confirmed!</h2>
+            <p>Your ticket is ready. See you at the event!</p>
+        </div>
+
+        <div class="confirm-details">
+            <div class="detail-row">
+                <span class="label">Event</span>
+                <span class="value">{{booking?.event_name}}</span>
+            </div>
+            <div class="detail-row">
+                <span class="label">Tickets</span>
+                <span class="value">{{booking?.tickets_booked}}</span>
+            </div>
+            <div class="detail-row">
+                <span class="label">Total Paid</span>
+                <span class="value">{{booking?.total_price | currency:'INR':'symbol-narrow'}}</span>
+            </div>
+        </div>
+
+        <div class="qr-section">
+            <span class="qr-label">Scan at Entrance</span>
+            <div class="qr-wrapper">
+                <img [src]="booking?.qr" alt="QR Code" class="qr-img">
+            </div>
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <button mat-raised-button color="primary" (click)="downloadQr()">
+            <mat-icon>download</mat-icon> Download Ticket
+        </button>
+        <button mat-stroked-button (click)="printConfirmation()">
+            <mat-icon>print</mat-icon> Print
+        </button>
+        <button mat-button routerLink="/events">Back to Events</button>
+    </div>
+</div>

@@ -1,0 +1,291 @@
+<div class="hero-section">
+    <div class="hero-container">
+        <!-- Left Image Group -->
+        <div class="hero-images left">
+            <div class="img-blob blob-1">
+                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=500&q=80"
+                    alt="Friends Together">
+            </div>
+            <div class="img-blob blob-2">
+                <img src="https://images.unsplash.com/photo-1511632765486-a3198163c966?auto=format&fit=crop&w=500&q=80"
+                    alt="Discussion Group">
+            </div>
+            <div class="img-blob blob-3">
+                <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=500&q=80"
+                    alt="Networking">
+            </div>
+        </div>
+
+        <!-- Center Content -->
+        <div class="hero-content">
+            <h1>The people platform—<br>Where <span class="highlight">interactions</span> become <span
+                    class="highlight">friendships.</span></h1>
+            <p>Whatever your interest, from hiking and reading to networking and skill sharing, there are thousands of
+                people who share it on Meetup. Events are happening every day—sign up to join the fun.</p>
+            <button class="join-btn" routerLink="/register">Join Smart Event</button>
+        </div>
+
+        <!-- Right Image Group -->
+        <div class="hero-images right">
+            <div class="img-blob blob-4">
+                <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=400&q=80"
+                    alt="Music Concert">
+            </div>
+            <div class="img-blob blob-5">
+                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=400&q=80"
+                    alt="Outdoor Fun">
+            </div>
+            <div class="img-blob blob-6">
+                <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=400&q=80"
+                    alt="Workshop">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Filters Section -->
+    <!-- Search/Filter Bar (Wedding Style) -->
+    <div class="search-bar-container">
+        <div class="search-pill">
+            <!-- Search Input -->
+            <div class="search-group">
+                <div class="icon-circle">
+                    <img src="https://cdn-icons-png.flaticon.com/512/622/622669.png" alt="Search">
+                </div>
+                <div class="input-wrapper">
+                    <label>Search Event</label>
+                    <input type="text" placeholder="DJ Night, Workshop..." [(ngModel)]="searchTerm"
+                        (ngModelChange)="applyFilters()">
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Category Dropdown -->
+            <div class="search-group">
+                <div class="icon-circle">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2921/2921226.png" alt="Category">
+                </div>
+                <div class="input-wrapper">
+                    <label>Category</label>
+                    <select [(ngModel)]="category" (change)="applyFilters()">
+                        <option value="">All Categories</option>
+                        <option value="Music">Music</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Art">Art</option>
+                        <option value="Travel">Travel</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Location Input -->
+            <div class="search-group">
+                <div class="icon-circle">
+                    <img src="https://cdn-icons-png.flaticon.com/512/535/535239.png" alt="Location">
+                </div>
+                <div class="input-wrapper">
+                    <label>Location</label>
+                    <input type="text" placeholder="Bangalore, India" [(ngModel)]="venue"
+                        (keyup.enter)="applyFilters()">
+                </div>
+            </div>
+
+            <!-- Search Button -->
+            <div class="search-action">
+                <button mat-raised-button color="primary" (click)="applyFilters()">
+                    Search Now
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="pagedEvents.length === 0" class="empty-state">
+        <mat-icon>event_busy</mat-icon>
+        <h3>No events found</h3>
+        <p>Try adjusting your search or filters to find what you're looking for.</p>
+        <button mat-stroked-button color="primary" (click)="clear()">Clear Filters</button>
+    </div>
+
+    <!-- Events Grid -->
+    <div class="events-grid" *ngIf="pagedEvents.length > 0">
+        <mat-card *ngFor="let e of pagedEvents" class="event-card">
+            <div class="event-image-container">
+                <img [src]="e.image_url ? (apiUrl + e.image_url) : 'assets/placeholder-event.jpg'" alt="{{e.name}}"
+                    onerror="this.src='https://placehold.co/600x400/e2e8f0/64748b?text=Event'">
+                <div class="category-badge">{{e.category || 'General'}}</div>
+            </div>
+
+            <mat-card-content>
+                <div class="event-date">
+                    <mat-icon>calendar_today</mat-icon>
+                    {{e.date_time | date:'mediumDate'}} • {{e.date_time | date:'shortTime'}}
+                </div>
+
+                <h3 class="event-title" [routerLink]="['/events', e.id]">{{e.name}}</h3>
+
+                <div class="event-venue">
+                    <mat-icon>location_on</mat-icon>
+                    {{e.venue}}
+                </div>
+
+                <p class="event-description">
+                    {{ (e.description || '') | slice:0:120 }}{{e.description?.length > 120 ? '...' : ''}}
+                </p>
+
+                <div class="event-meta">
+                    <div class="price-tag">
+                        {{e.ticket_price | currency:'INR':'symbol-narrow'}}
+                    </div>
+                    <div class="seats-info" [class.sold-out]="e.available_seats <= 0">
+                        {{e.available_seats}} seats left
+                    </div>
+                </div>
+            </mat-card-content>
+
+            <mat-card-actions align="end">
+                <button mat-stroked-button color="primary" [routerLink]="['/events', e.id]">Details</button>
+                <button mat-raised-button color="accent" [routerLink]="['/events', e.id, 'book']"
+                    [disabled]="e.available_seats <= 0">
+                    {{e.available_seats > 0 ? 'Book Ticket' : 'Sold Out'}}
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination" *ngIf="totalPages > 1">
+        <button mat-icon-button (click)="prevPage()" [disabled]="page<=1">
+            <mat-icon>chevron_left</mat-icon>
+        </button>
+        <span class="page-info">{{page}} / {{totalPages}}</span>
+        <button mat-icon-button (click)="nextPage()" [disabled]="page>=totalPages">
+            <mat-icon>chevron_right</mat-icon>
+        </button>
+    </div>
+</div>
+
+<!-- =======================
+     NEW LANDING SECTIONS
+     ======================= -->
+
+<!-- Categories Section -->
+<div class="section-container bg-secondary">
+    <div class="container">
+        <h2 class="section-heading">Explore Top Categories</h2>
+        <div class="categories-grid">
+            <div class="category-card" (click)="category='Music'; applyFilters()">
+                <div class="icon-3d">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3075/3075904.png" alt="Music">
+                </div>
+                <span>Music</span>
+            </div>
+            <div class="category-card" (click)="category='Technology'; applyFilters()">
+                <div class="icon-3d">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2920/2920249.png" alt="Tech">
+                </div>
+                <span>Tech</span>
+            </div>
+            <div class="category-card" (click)="category='Travel'; applyFilters()">
+                <div class="icon-3d">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2200/2200326.png" alt="Travel">
+                </div>
+                <span>Travel</span>
+            </div>
+            <div class="category-card" (click)="category='Health'; applyFilters()">
+                <div class="icon-3d">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2966/2966334.png" alt="Health">
+                </div>
+                <span>Health</span>
+            </div>
+            <div class="category-card" (click)="category='Food'; applyFilters()">
+                <div class="icon-3d">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2921/2921822.png" alt="Food">
+                </div>
+                <span>Food</span>
+            </div>
+            <div class="category-card" (click)="category='Art'; applyFilters()">
+                <div class="icon-3d">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2972/2972106.png" alt="Art">
+                </div>
+                <span>Art</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- How It Works Section (Creative) -->
+<div class="section-container how-it-works-section">
+    <div class="container">
+        <h2 class="section-heading">How It Works</h2>
+        <p class="section-subheading">Your journey to amazing experiences in 3 simple steps</p>
+
+        <div class="steps-grid-creative">
+            <!-- Step 1 -->
+            <div class="creative-step-card">
+                <div class="step-blob blob-blue">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2855/2855429.png" alt="Search">
+                    <div class="step-number">1</div>
+                </div>
+                <h3>Discover Events</h3>
+                <p>Browse thousands of events tailored to your unique interests and passions.</p>
+                <div class="step-connector"></div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="creative-step-card">
+                <div class="step-blob blob-pink">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3004/3004164.png" alt="Profile">
+                    <div class="step-number">2</div>
+                </div>
+                <h3>Create Account</h3>
+                <p>Sign up in seconds to track bookings and get personalized recommendations.</p>
+                <div class="step-connector"></div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="creative-step-card">
+                <div class="step-blob blob-yellow">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2558/2558162.png" alt="Ticket">
+                    <div class="step-number">3</div>
+                </div>
+                <h3>Get Tickets</h3>
+                <p>Secure your spot instantly. We'll email your QR code for seamless entry.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Join Banner (Creative) -->
+<div class="section-container join-banner-section">
+    <div class="container">
+        <div class="join-banner">
+            <div class="banner-content">
+                <h2>Join the community of millions.</h2>
+                <p>Real-world connections are more important than ever. Start your journey with Smart Event today and
+                    find your tribe.</p>
+                <div class="banner-stats">
+                    <div class="stat-item">
+                        <strong>50k+</strong>
+                        <span>Events</span>
+                    </div>
+                    <div class="stat-item">
+                        <strong>100+</strong>
+                        <span>Cities</span>
+                    </div>
+                </div>
+                <button mat-raised-button color="primary" routerLink="/register" class="banner-btn">
+                    Get Started <mat-icon>arrow_forward</mat-icon>
+                </button>
+            </div>
+            <div class="banner-image-wrapper">
+                <div class="banner-blob-bg"></div>
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80"
+                    alt="Community">
+            </div>
+        </div>
+    </div>
+</div>

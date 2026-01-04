@@ -1,0 +1,67 @@
+<div class="auth-page-wrapper">
+    <div class="auth-card">
+        <!-- Visual Side -->
+        <div class="auth-visual">
+            <h1 class="brand-title">Join Us.</h1>
+            <p class="brand-desc">Create an account to unlock exclusive events, connect with like-minded people, and
+                experience the best of Smart Event.</p>
+            <div class="visual-art">
+                <!-- Placeholder for a nice 3D illustration -->
+                <img src="https://cdn-icons-png.flaticon.com/512/7486/7486744.png" alt="Join Us Illustration">
+            </div>
+        </div>
+
+        <!-- Form Side -->
+        <div class="auth-form-container">
+            <h2>Create Account</h2>
+
+            <form [formGroup]="form" (ngSubmit)="register()">
+                <!-- Username -->
+                <div class="form-group">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Username</mat-label>
+                        <input matInput formControlName="username" placeholder="Choose a username">
+                        <mat-icon matSuffix>person</mat-icon>
+                        <mat-error *ngIf="form.controls.username.invalid && form.controls.username.touched">Username is
+                            required</mat-error>
+                    </mat-form-field>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Password</mat-label>
+                        <input matInput type="password" formControlName="password" placeholder="Create a password">
+                        <mat-icon matSuffix>lock</mat-icon>
+                        <mat-error *ngIf="form.controls.password.invalid && form.controls.password.touched">Min 6
+                            characters</mat-error>
+                    </mat-form-field>
+                </div>
+
+                <!-- Role -->
+                <div class="form-group">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>I am a...</mat-label>
+                        <mat-select formControlName="role">
+                            <mat-option value="attendee">Attendee (Looking for events)</mat-option>
+                            <mat-option value="organizer">Organizer (Hosting events)</mat-option>
+                        </mat-select>
+                        <mat-icon matSuffix>group</mat-icon>
+                    </mat-form-field>
+                </div>
+
+                <!-- Submit -->
+                <div class="auth-actions">
+                    <button mat-raised-button color="primary" class="btn-register" type="submit"
+                        [disabled]="form.invalid">
+                        Register Now
+                    </button>
+                </div>
+
+                <div class="login-link">
+                    Already have an account? <a routerLink="/login">Log In</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,95 @@
+<div class="dashboard-container">
+    <div class="dashboard-header container">
+        <div>
+            <h1 class="text-gradient">Organizer Dashboard</h1>
+            <p class="subtitle">Manage your events, track sales, and monitor attendees.</p>
+        </div>
+        <button mat-raised-button color="primary" class="create-btn" (click)="create()">
+            <mat-icon>add</mat-icon> Create New Event
+        </button>
+    </div>
+
+    <div class="container">
+        <div *ngIf="events.length === 0" class="empty-state">
+            <mat-icon>event_note</mat-icon>
+            <h3>No events created yet</h3>
+            <p>Get started by creating your first event.</p>
+            <button mat-stroked-button color="primary" (click)="create()">Create Event</button>
+        </div>
+
+        <div class="events-list" *ngIf="events.length > 0">
+            <div class="event-management-card" *ngFor="let e of events">
+                <div class="card-status-strip" [class.cancelled]="e.status === 'cancelled'"></div>
+
+                <div class="card-content">
+                    <div class="event-info">
+                        <h3 class="event-title">{{e.name}} <span class="cancelled-tag"
+                                *ngIf="e.status === 'cancelled'">(Cancelled)</span></h3>
+                        <div class="event-meta">
+                            <span><mat-icon>calendar_today</mat-icon> {{e.date_time | date:'medium'}}</span>
+                            <span><mat-icon>location_on</mat-icon> {{e.venue}}</span>
+                        </div>
+                    </div>
+
+                    <div class="event-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Tickets Sold</span>
+                            <span class="stat-value">{{e.tickets_sold || 0}} / {{e.capacity}}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Revenue</span>
+                            <span class="stat-value">{{ (e.tickets_sold * e.ticket_price) |
+                                currency:'INR':'symbol-narrow' }}</span>
+                        </div>
+                    </div>
+
+                    <div class="event-actions">
+                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="More actions">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="edit(e.id)" [disabled]="e.status === 'cancelled'">
+                                <mat-icon>edit</mat-icon> Edit Event
+                            </button>
+                            <button mat-menu-item (click)="loadAttendees(e.id)">
+                                <mat-icon>people</mat-icon> View Attendees
+                            </button>
+                            <button mat-menu-item (click)="exportCsv(e.id, e.name)">
+                                <mat-icon>download</mat-icon> Export CSV
+                            </button>
+                            <button mat-menu-item (click)="cancel(e.id)" *ngIf="e.status !== 'cancelled'"
+                                class="text-warn">
+                                <mat-icon color="warn">cancel</mat-icon> Cancel Event
+                            </button>
+                        </mat-menu>
+                    </div>
+                </div>
+
+                <!-- Attendees Panel (Simple Toggle) -->
+                <div class="attendees-panel" *ngIf="attendees[e.id]">
+                    <div class="panel-header">
+                        <h4>Attendee List</h4>
+                        <button mat-icon-button (click)="attendees[e.id] = null"><mat-icon>close</mat-icon></button>
+                    </div>
+                    <div class="attendees-list">
+                        <div class="attendee-row header-row">
+                            <span>ID</span>
+                            <span>Name (ID)</span>
+                            <span>Tickets</span>
+                            <span>Date</span>
+                        </div>
+                        <div class="attendee-row" *ngFor="let a of attendees[e.id]">
+                            <span>#{{a.id}}</span>
+                            <span>User #{{a.attendee_id}}</span>
+                            <span>{{a.tickets_booked}}</span>
+                            <span>{{a.booking_time | date:'short'}}</span>
+                        </div>
+                        <div class="no-attendees" *ngIf="attendees[e.id].length === 0">
+                            No bookings yet.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

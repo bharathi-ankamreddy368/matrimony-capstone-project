@@ -1,0 +1,54 @@
+<div class="auth-page-wrapper">
+    <div class="auth-card">
+        <!-- Visual Side -->
+        <div class="auth-visual">
+            <h1 class="brand-title">Welcome Back.</h1>
+            <p class="brand-desc">Sign in to access your dashboard, manage your events, and stay connected with your
+                community.</p>
+            <div class="visual-art">
+                <!-- Placeholder for a nice 3D illustration -->
+                <img src="https://cdn-icons-png.flaticon.com/512/2922/2922510.png" alt="Login Illustration">
+            </div>
+        </div>
+
+        <!-- Form Side -->
+        <div class="auth-form-container">
+            <h2>Log In</h2>
+
+            <form [formGroup]="form" (ngSubmit)="login()">
+                <!-- Username -->
+                <div class="form-group">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Username</mat-label>
+                        <input matInput formControlName="username" placeholder="Enter your username">
+                        <mat-icon matSuffix>person</mat-icon>
+                        <mat-error *ngIf="form.controls.username.invalid && form.controls.username.touched">Username is
+                            required</mat-error>
+                    </mat-form-field>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Password</mat-label>
+                        <input matInput type="password" formControlName="password" placeholder="Enter your password">
+                        <mat-icon matSuffix>lock</mat-icon>
+                        <mat-error *ngIf="form.controls.password.invalid && form.controls.password.touched">Password is
+                            required</mat-error>
+                    </mat-form-field>
+                </div>
+
+                <!-- Submit -->
+                <div class="auth-actions">
+                    <button mat-raised-button color="primary" class="btn-login" type="submit" [disabled]="form.invalid">
+                        Log In
+                    </button>
+                </div>
+
+                <div class="register-link">
+                    Don't have an account? <a (click)="goRegister()">Sign Up</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

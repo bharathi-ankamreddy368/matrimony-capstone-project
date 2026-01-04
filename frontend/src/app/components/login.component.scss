@@ -1,0 +1,135 @@
+.auth-page-wrapper {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-secondary);
+    padding: 2rem;
+}
+
+.auth-card {
+    background: #ffffff;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    display: flex;
+    max-width: 1000px;
+    width: 100%;
+    min-height: 600px;
+    border: 1px solid var(--border-color);
+}
+
+/* Left Side - Visual */
+.auth-visual {
+    flex: 1.2;
+    background: linear-gradient(135deg, var(--secondary-dark), var(--secondary-color));
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        width: 150%;
+        height: 150%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 60%);
+        top: -25%;
+        left: -25%;
+    }
+}
+
+.brand-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 10;
+    letter-spacing: -2px;
+    line-height: 1.1;
+}
+
+.brand-desc {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    line-height: 1.6;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 10;
+}
+
+.visual-art {
+    position: relative;
+    z-index: 10;
+
+    img {
+        width: 100%;
+        max-width: 280px;
+        display: block;
+        margin: 0 auto;
+        filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
+    }
+}
+
+/* Right Side - Form */
+.auth-form-container {
+    flex: 1;
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #fff;
+
+    h2 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--text-main);
+        margin-bottom: 0.5rem;
+        letter-spacing: -1px;
+    }
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.auth-actions {
+    margin-top: 2rem;
+}
+
+.btn-login {
+    width: 100%;
+    height: 56px !important;
+    font-size: 1.1rem !important;
+    border-radius: var(--radius-pill) !important;
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 1rem;
+    color: var(--text-secondary);
+
+    a {
+        color: var(--primary-color);
+        font-weight: 700;
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+@media (max-width: 900px) {
+    .auth-visual {
+        display: none;
+    }
+
+    .auth-card {
+        max-width: 500px;
+    }
+}

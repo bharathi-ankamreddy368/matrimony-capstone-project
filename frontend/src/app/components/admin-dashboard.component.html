@@ -1,0 +1,68 @@
+<div class="admin-container">
+    <div class="container">
+        <header class="page-header">
+            <h1 class="text-gradient">Admin Analytics</h1>
+            <p>Platform overview and performance metrics.</p>
+        </header>
+
+        <div *ngIf="stats" class="analytics-content">
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="icon-box blue"><mat-icon>event</mat-icon></div>
+                    <div class="data">
+                        <span class="label">Total Events</span>
+                        <span class="value">{{stats.total_events}}</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon-box pink"><mat-icon>confirmation_number</mat-icon></div>
+                    <div class="data">
+                        <span class="label">Total Bookings</span>
+                        <span class="value">{{stats.total_bookings}}</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon-box yellow"><mat-icon>payments</mat-icon></div>
+                    <div class="data">
+                        <span class="label">Total Revenue</span>
+                        <span class="value text-gradient">{{stats.total_revenue |
+                            currency:'INR':'symbol-narrow'}}</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon-box green"><mat-icon>group</mat-icon></div>
+                    <div class="data">
+                        <span class="label">Total Users</span>
+                        <span class="value">{{stats.total_users}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Events Table -->
+            <div class="top-events-section">
+                <h3 class="section-title">Top Performing Events</h3>
+                <div class="table-container glass-card">
+                    <table class="premium-table">
+                        <thead>
+                            <tr>
+                                <th>Event Name</th>
+                                <th>Tickets Sold</th>
+                                <th>Growth</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let e of stats.top_events">
+                                <td class="event-name-cell">{{e.name}}</td>
+                                <td class="stat-cell">{{e.tickets_sold}}</td>
+                                <td>
+                                    <span class="trend up"><mat-icon>trending_up</mat-icon> High</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

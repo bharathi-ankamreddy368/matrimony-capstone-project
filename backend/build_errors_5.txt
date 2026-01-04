@@ -1,0 +1,5 @@
+
+> capstone-backend@0.1.0 build
+> tsc -p tsconfig.json
+
+src/controllers/adminController.ts(6,12): error TS2488: Type 'QueryResult' must have a '[Symbol.iterator]()' method that returns an iterator.

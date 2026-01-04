@@ -1,0 +1,76 @@
+<mat-toolbar color="primary">
+  <span class="logo" routerLink="/events">Smart Event</span>
+  <span class="spacer"></span>
+
+  <ng-container *ngIf="auth.isAuthenticated(); else guestLinks">
+    <!-- Attendee Links -->
+    <a mat-button routerLink="/events" routerLinkActive="active-link">Browse Events</a>
+    <a mat-button routerLink="/my-bookings" *ngIf="auth.getRole()==='attendee'" routerLinkActive="active-link">My
+      Bookings</a>
+
+    <!-- Organizer Links -->
+    <a mat-button routerLink="/organizer/dashboard" *ngIf="auth.getRole()==='organizer'"
+      routerLinkActive="active-link">Organizer Dashboard</a>
+
+    <!-- Admin Link -->
+    <a mat-button routerLink="/admin" *ngIf="auth.getRole()==='admin'" routerLinkActive="active-link">Admin</a>
+
+    <div style="display: flex; align-items: center; gap: 8px; margin: 0 20px;">
+      <mat-icon style="color: var(--text-secondary)">account_circle</mat-icon>
+      <span class="role-badge" style="margin: 0">{{auth.getRole() | titlecase}}</span>
+    </div>
+    <button mat-raised-button color="accent" (click)="logout()">Logout</button>
+  </ng-container>
+
+  <ng-template #guestLinks>
+    <a mat-button routerLink="/events" routerLinkActive="active-link">Browse Events</a>
+    <a mat-button routerLink="/login" routerLinkActive="active-link">Login</a>
+    <a mat-raised-button color="accent" routerLink="/register">Get Started</a>
+  </ng-template>
+</mat-toolbar>
+
+<div class="main-content">
+  <router-outlet></router-outlet>
+</div>
+
+<!-- Footer -->
+<footer class="app-footer">
+  <div class="footer-container">
+    <div class="footer-col brand-col">
+      <h3 class="footer-logo">Smart Event.</h3>
+      <p class="tagline">Where interests become friendships.</p>
+      <div class="social-links">
+        <a href="#" class="social-btn"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="FB"></a>
+        <a href="#" class="social-btn"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="IG"></a>
+        <a href="#" class="social-btn"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="TW"></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Your Account</h4>
+      <a href="#">Sign up</a>
+      <a href="#">Log in</a>
+      <a href="#">Help Center</a>
+    </div>
+    <div class="footer-col">
+      <h4>Discover</h4>
+      <a href="#">Groups</a>
+      <a href="#">Calendar</a>
+      <a href="#">Topics</a>
+      <a href="#">Cities</a>
+    </div>
+    <div class="footer-col">
+      <h4>About</h4>
+      <a href="#">About Us</a>
+      <a href="#">Careers</a>
+      <a href="#">Blog</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2024 Smart Event Planner. All rights reserved.</p>
+    <div class="footer-legal">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+    </div>
+  </div>
+</footer>

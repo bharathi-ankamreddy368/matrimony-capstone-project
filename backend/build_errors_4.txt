@@ -1,0 +1,17 @@
+
+> capstone-backend@0.1.0 build
+> tsc -p tsconfig.json
+
+src/app.ts(4,20): error TS7016: Could not find a declaration file for module 'morgan'. 'C:/Users/ankam/Downloads/capstone project/backend/node_modules/morgan/index.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/morgan` if it exists or add a new declaration (.d.ts) file containing `declare module 'morgan';`
+src/controllers/bookingsController.ts(4,20): error TS7016: Could not find a declaration file for module 'qrcode'. 'C:/Users/ankam/Downloads/capstone project/backend/node_modules/qrcode/lib/index.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/qrcode` if it exists or add a new declaration (.d.ts) file containing `declare module 'qrcode';`
+src/controllers/eventsController.ts(82,54): error TS2339: Property 'status' does not exist on type 'QueryResult'.
+  Property 'status' does not exist on type 'OkPacket'.
+src/middleware/auth.middleware.ts(2,17): error TS7016: Could not find a declaration file for module 'jsonwebtoken'. 'C:/Users/ankam/Downloads/capstone project/backend/node_modules/jsonwebtoken/index.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/jsonwebtoken` if it exists or add a new declaration (.d.ts) file containing `declare module 'jsonwebtoken';`
+src/middleware/auth.ts(2,17): error TS7016: Could not find a declaration file for module 'jsonwebtoken'. 'C:/Users/ankam/Downloads/capstone project/backend/node_modules/jsonwebtoken/index.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/jsonwebtoken` if it exists or add a new declaration (.d.ts) file containing `declare module 'jsonwebtoken';`
+src/models/bookingModel.ts(33,12): error TS2488: Type 'QueryResult' must have a '[Symbol.iterator]()' method that returns an iterator.
+src/routes/auth.ts(2,17): error TS7016: Could not find a declaration file for module 'jsonwebtoken'. 'C:/Users/ankam/Downloads/capstone project/backend/node_modules/jsonwebtoken/index.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/jsonwebtoken` if it exists or add a new declaration (.d.ts) file containing `declare module 'jsonwebtoken';`

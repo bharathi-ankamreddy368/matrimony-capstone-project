@@ -1,0 +1,133 @@
+.confirmation-container {
+    min-height: calc(100vh - 80px);
+    background: var(--bg-secondary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 2rem;
+}
+
+.simple-ticket {
+    max-width: 500px;
+    width: 100%;
+    background: white;
+    padding: 0;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    position: relative;
+
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        width: 40px;
+        height: 40px;
+        background: var(--bg-secondary);
+        border-radius: 50%;
+        z-index: 10;
+        margin-top: -20px;
+    }
+
+    &::before {
+        left: -20px;
+    }
+
+    &::after {
+        right: -20px;
+    }
+}
+
+.ticket-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    padding: 3rem;
+    color: white;
+    text-align: center;
+
+    .confirm-title {
+        font-size: 2.2rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+        color: white;
+    }
+
+    p {
+        opacity: 0.9;
+        font-weight: 500;
+    }
+}
+
+.confirm-details {
+    padding: 3rem;
+    border-bottom: 2px dashed var(--border-color);
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-color);
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    .label {
+        font-weight: 700;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 0.5px;
+    }
+
+    .value {
+        font-weight: 800;
+        color: var(--text-main);
+        font-size: 1.1rem;
+    }
+}
+
+.qr-section {
+    padding: 3rem;
+    text-align: center;
+    background: #fafafa;
+
+    .qr-label {
+        font-weight: 800;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        margin-bottom: 1.5rem;
+        display: block;
+    }
+
+    .qr-wrapper {
+        background: white;
+        padding: 2rem;
+        border-radius: var(--radius-md);
+        display: inline-block;
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--border-color);
+
+        .qr-img {
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+        }
+    }
+}
+
+.action-buttons {
+    margin-top: 4rem;
+    display: flex;
+    gap: 1.5rem;
+
+    button {
+        height: 56px !important;
+        padding: 0 32px !important;
+        border-radius: var(--radius-pill) !important;
+        font-weight: 800 !important;
+    }
+}

@@ -1,0 +1,175 @@
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+/* =========================================
+   1. VARIABLES & THEME SETUP
+   ========================================= */
+:root {
+    /* Premium Color Palette */
+    --primary-color: #ff3366;
+    /* Vibrant Pink */
+    --primary-dark: #d61a4c;
+    --primary-light: #ff7597;
+    --primary-glow: rgba(255, 51, 102, 0.4);
+
+    --secondary-color: #2d00f7;
+    /* Electric Blue */
+    --secondary-dark: #1b009e;
+    --secondary-light: #6a4cff;
+    --secondary-glow: rgba(45, 0, 247, 0.3);
+
+    --accent-color: #ffd600;
+    /* Pop Yellow */
+    --success-color: #00c853;
+    --warn-color: #ff3d00;
+
+    /* Backgrounds & Glassmorphism */
+    --bg-color: #ffffff;
+    --bg-gradient: linear-gradient(135deg, #fff5f8 0%, #ffffff 50%, #f0f7ff 100%);
+    --bg-dark: #121212;
+    --bg-secondary: #f8fafc;
+    --card-bg: #ffffff;
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    --glass-border: rgba(255, 255, 255, 0.4);
+
+    /* Text */
+    --text-main: #1e293b;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+    --text-light: #ffffff;
+
+    /* Borders & Shadows */
+    --border-color: #e2e8f0;
+    --shadow-sm: 0 4px 15px rgba(255, 51, 102, 0.08);
+    --shadow-md: 0 10px 30px rgba(45, 0, 247, 0.12);
+    --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.1);
+
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-pill: 50px;
+
+    --font-heading: 'Poppins', 'Inter', sans-serif;
+    --font-body: 'Inter', 'Segoe UI', Roboto, sans-serif;
+}
+
+/* =========================================
+   2. GLOBAL RESET & TYPOGRAPHY
+   ========================================= */
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-body);
+    background: var(--bg-gradient);
+    color: var(--text-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0 0 1rem 0;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: -0.02em;
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+a {
+    text-decoration: none;
+    color: var(--secondary-color);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 600;
+}
+
+a:hover {
+    color: var(--primary-color);
+}
+
+/* =========================================
+   3. UTILITY CLASSES
+   ========================================= */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-sm);
+}
+
+/* =========================================
+   4. MATERIAL OVERRIDES (PREMIUM STYLE)
+   ========================================= */
+.mat-mdc-card {
+    border-radius: var(--radius-md) !important;
+    box-shadow: var(--shadow-sm) !important;
+    border: 1px solid var(--border-color) !important;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+}
+
+.mat-mdc-card:hover {
+    box-shadow: var(--shadow-md) !important;
+    transform: translateY(-4px);
+    border-color: rgba(45, 0, 247, 0.1) !important;
+}
+
+/* Buttons: Premium Pill Style */
+.mat-mdc-raised-button.mat-primary {
+    background: var(--primary-color) !important;
+    color: white !important;
+    border-radius: var(--radius-pill) !important;
+    padding: 0 28px !important;
+    height: 48px !important;
+    font-weight: 700 !important;
+    box-shadow: 0 8px 20px var(--primary-glow) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.mat-mdc-raised-button.mat-primary:hover {
+    background: var(--primary-dark) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px var(--primary-glow) !important;
+}
+
+.mat-mdc-raised-button.mat-accent {
+    background: var(--secondary-color) !important;
+    color: white !important;
+    border-radius: var(--radius-pill) !important;
+    box-shadow: 0 8px 20px var(--secondary-glow) !important;
+}
+
+.mat-toolbar.mat-primary {
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(20px);
+    color: var(--text-main) !important;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.mat-mdc-form-field {
+    width: 100%;
+}

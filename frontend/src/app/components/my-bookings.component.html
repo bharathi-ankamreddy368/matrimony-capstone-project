@@ -1,0 +1,42 @@
+<div class="bookings-container">
+    <div class="container">
+        <header class="page-header">
+            <h1 class="text-gradient">My Bookings</h1>
+            <p>Keep track of all your upcoming and past events.</p>
+        </header>
+
+        <div class="bookings-grid" *ngIf="bookings.length > 0; else emptyState">
+            <div class="booking-card glass-card" *ngFor="let b of bookings">
+                <div class="card-status-bar"></div>
+                <div class="card-body">
+                    <div class="event-info">
+                        <h3>{{b.event_name}}</h3>
+                        <div class="meta">
+                            <span><mat-icon>confirmation_number</mat-icon> {{b.tickets_booked}} Tickets</span>
+                            <span><mat-icon>payments</mat-icon> {{b.total_price |
+                                currency:'INR':'symbol-narrow'}}</span>
+                        </div>
+                    </div>
+
+                    <div class="qr-preview" *ngIf="b.qr">
+                        <img [src]="b.qr" alt="Ticket QR">
+                    </div>
+
+                    <div class="actions">
+                        <button mat-flat-button color="accent" [routerLink]="['/booking', b.id]">View Full
+                            Ticket</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ng-template #emptyState>
+            <div class="empty-state">
+                <mat-icon>event_busy</mat-icon>
+                <h2>No Bookings Yet</h2>
+                <p>Looks like you haven't booked any events yet. Explore top events and start your journey!</p>
+                <button mat-raised-button color="primary" routerLink="/events">Explore Events</button>
+            </div>
+        </ng-template>
+    </div>
+</div>

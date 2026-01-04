@@ -1,0 +1,97 @@
+<div class="create-container">
+    <mat-card class="create-card">
+        <header class="card-header">
+            <h1 class="text-gradient">Create New Event</h1>
+            <p>Fill in the details below to host your event.</p>
+        </header>
+
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <div class="form-grid">
+                <div class="row-2">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Event Name</mat-label>
+                        <input matInput formControlName="name" placeholder="e.g. Summer Music Festival">
+                        <mat-icon matSuffix>event</mat-icon>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Category</mat-label>
+                        <mat-select formControlName="category">
+                            <mat-option value="Music">Music</mat-option>
+                            <mat-option value="Technology">Technology</mat-option>
+                            <mat-option value="Workshop">Workshop</mat-option>
+                            <mat-option value="Conference">Conference</mat-option>
+                            <mat-option value="Travel">Travel</mat-option>
+                            <mat-option value="Health">Health</mat-option>
+                            <mat-option value="Food">Food</mat-option>
+                            <mat-option value="Art">Art</mat-option>
+                            <mat-option value="Other">Other</mat-option>
+                        </mat-select>
+                        <mat-icon matSuffix>category</mat-icon>
+                    </mat-form-field>
+                </div>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Description</mat-label>
+                    <textarea matInput formControlName="description" rows="4"
+                        placeholder="Tell people what your event is about..."></textarea>
+                </mat-form-field>
+
+                <div class="row-2">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Venue / Location</mat-label>
+                        <input matInput formControlName="venue" placeholder="e.g. Grand Plaza, Downtown">
+                        <mat-icon matSuffix>location_on</mat-icon>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Date & Time</mat-label>
+                        <input matInput type="datetime-local" formControlName="date_time">
+                    </mat-form-field>
+                </div>
+
+                <div class="row-2">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Capacity</mat-label>
+                        <input matInput type="number" formControlName="capacity" min="1">
+                        <mat-icon matSuffix>people</mat-icon>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Ticket Price (₹)</mat-label>
+                        <input matInput type="number" formControlName="ticket_price" min="0">
+                        <span matPrefix>₹&nbsp;</span>
+                    </mat-form-field>
+                </div>
+
+                <div class="media-section">
+                    <span class="file-label">Event Banner</span>
+                    <div class="file-input-wrapper">
+                        <input type="file" (change)="onFile($event)" accept="image/*" style="display: none" #fileRef>
+                        <button mat-stroked-button type="button" (click)="fileRef.click()" color="primary">
+                            <mat-icon>cloud_upload</mat-icon> Upload Image
+                        </button>
+                    </div>
+
+                    <div class="image-preview" *ngIf="preview">
+                        <img [src]="preview" alt="Event Preview">
+                        <button mat-icon-button class="remove-btn" type="button" (click)="preview = null">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </div>
+                </div>
+
+                <div *ngIf="progress !== null" style="margin-top: 2rem">
+                    <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+                </div>
+
+                <div class="form-actions">
+                    <button mat-button type="button" (click)="cancel()">Cancel</button>
+                    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || submitting">
+                        {{ submitting ? 'Processing...' : 'Create Event' }}
+                    </button>
+                </div>
+            </div>
+        </form>
+    </mat-card>
+</div>
