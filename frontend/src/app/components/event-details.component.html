@@ -1,4 +1,6 @@
-<div class="event-details-container" *ngIf="event; else loading">
+<div class="event-details-container" [class.dark-theme]="false" *ngIf="event; else loading">
+    <div class="sidebar-blob"></div>
+    <div class="sidebar-blob-bottom"></div>
     <!-- Hero Section -->
     <div class="hero-section"
         [style.backgroundImage]="'url(' + (event.image_url ? (apiUrl + event.image_url) : 'assets/placeholder-event-hero.jpg') + ')'">

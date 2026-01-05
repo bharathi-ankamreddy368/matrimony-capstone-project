@@ -1,40 +1,84 @@
-<div class="confirmation-container">
-    <div class="simple-ticket">
-        <div class="ticket-header">
-            <h2 class="confirm-title">Booking Confirmed!</h2>
-            <p>Your ticket is ready. See you at the event!</p>
+<div class="confirmation-container-wrapper" *ngIf="booking; else loading">
+    <div class="sidebar-blob"></div>
+    <div class="sidebar-blob-bottom"></div>
+
+    <div class="confirmation-content container">
+        <div class="success-header">
+            <div class="check-box">
+                <mat-icon>check_circle</mat-icon>
+            </div>
+            <h1 class="text-gradient">Booking Confirmed!</h1>
+            <p>Your entry pass is ready. Show the QR code at the event entrance.</p>
         </div>
 
-        <div class="confirm-details">
-            <div class="detail-row">
-                <span class="label">Event</span>
-                <span class="value">{{booking?.event_name}}</span>
+        <div class="premium-ticket shadow-3d">
+            <!-- Left Side: Event Details -->
+            <div class="ticket-left">
+                <div class="ticket-type">ENTRY PASS</div>
+                <h2 class="event-name">{{booking.event_name}}</h2>
+
+                <div class="ticket-info-grid">
+                    <div class="info-item">
+                        <span class="label">DATE</span>
+                        <span class="value">{{booking.event_date | date:'mediumDate'}}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">TIME</span>
+                        <span class="value">{{booking.event_time || '10:00 AM'}}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">QUANTITY</span>
+                        <span class="value">{{booking.tickets_booked}} Tickets</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">BOOKING ID</span>
+                        <span class="value">#SMT-{{booking.id}}</span>
+                    </div>
+                </div>
+
+                <div class="venue-section">
+                    <mat-icon>location_on</mat-icon>
+                    <span>{{booking.event_venue}}</span>
+                </div>
             </div>
-            <div class="detail-row">
-                <span class="label">Tickets</span>
-                <span class="value">{{booking?.tickets_booked}}</span>
+
+            <!-- Ticket Divider -->
+            <div class="ticket-divider">
+                <div class="notch top"></div>
+                <div class="dashed-line"></div>
+                <div class="notch bottom"></div>
             </div>
-            <div class="detail-row">
-                <span class="label">Total Paid</span>
-                <span class="value">{{booking?.total_price | currency:'INR':'symbol-narrow'}}</span>
+
+            <!-- Right Side: QR Code -->
+            <div class="ticket-right">
+                <div class="qr-scan-box">
+                    <div class="corner top-left"></div>
+                    <div class="corner top-right"></div>
+                    <div class="corner bottom-left"></div>
+                    <div class="corner bottom-right"></div>
+                    <img [src]="booking.qr" alt="Ticket QR" class="qr-code-img">
+                </div>
+                <span class="scan-label">SCAN AT ENTRANCE</span>
             </div>
         </div>
 
-        <div class="qr-section">
-            <span class="qr-label">Scan at Entrance</span>
-            <div class="qr-wrapper">
-                <img [src]="booking?.qr" alt="QR Code" class="qr-img">
+        <div class="action-bar-premium">
+            <button mat-raised-button color="primary" class="download-btn" (click)="downloadQr()">
+                <mat-icon>download</mat-icon> Download Pass
+            </button>
+            <div class="secondary-actions">
+                <button mat-stroked-button (click)="printConfirmation()">
+                    <mat-icon>print</mat-icon> Print
+                </button>
+                <button mat-button routerLink="/events">Browse More Events</button>
             </div>
         </div>
-    </div>
-
-    <div class="action-buttons">
-        <button mat-raised-button color="primary" (click)="downloadQr()">
-            <mat-icon>download</mat-icon> Download Ticket
-        </button>
-        <button mat-stroked-button (click)="printConfirmation()">
-            <mat-icon>print</mat-icon> Print
-        </button>
-        <button mat-button routerLink="/events">Back to Events</button>
     </div>
 </div>
+
+<ng-template #loading>
+    <div class="loading-state">
+        <mat-spinner diameter="40"></mat-spinner>
+        <p>Loading your ticket...</p>
+    </div>
+</ng-template>

@@ -1,41 +1,75 @@
-<div class="bookings-container">
-    <div class="container">
-        <header class="page-header">
-            <h1 class="text-gradient">My Bookings</h1>
-            <p>Keep track of all your upcoming and past events.</p>
+<div class="my-bookings-container-wrapper">
+    <!-- Dashboard Style Background Blobs -->
+    <div class="sidebar-blob"></div>
+    <div class="sidebar-blob-bottom"></div>
+
+    <div class="container main-content-area">
+        <header class="page-header-premium">
+            <div class="header-icon-box">
+                <mat-icon>confirmation_number</mat-icon>
+            </div>
+            <div class="header-text">
+                <h1 class="text-gradient">My Entry Passes</h1>
+                <p class="subtitle">Quick access to all your booked events and digital tickets.</p>
+            </div>
         </header>
 
-        <div class="bookings-grid" *ngIf="bookings.length > 0; else emptyState">
-            <div class="booking-card glass-card" *ngFor="let b of bookings">
-                <div class="card-status-bar"></div>
-                <div class="card-body">
-                    <div class="event-info">
+        <div class="bookings-grid-premium" *ngIf="bookings.length > 0; else emptyState">
+            <div class="booking-glass-card shadow-hover" *ngFor="let b of bookings">
+                <!-- Status Accent Bar -->
+                <div class="card-accent" [class.upcoming]="isUpcoming(b.event_date)"
+                    [class.past]="!isUpcoming(b.event_date)"></div>
+
+                <div class="card-content-wrapper">
+                    <div class="event-details-mini">
+                        <span class="status-badge" [class.upcoming]="isUpcoming(b.event_date)">
+                            {{ isUpcoming(b.event_date) ? 'Upcoming' : 'Completed' }}
+                        </span>
                         <h3>{{b.event_name}}</h3>
-                        <div class="meta">
-                            <span><mat-icon>confirmation_number</mat-icon> {{b.tickets_booked}} Tickets</span>
-                            <span><mat-icon>payments</mat-icon> {{b.total_price |
-                                currency:'INR':'symbol-narrow'}}</span>
+
+                        <div class="meta-info">
+                            <div class="info-row">
+                                <mat-icon>calendar_today</mat-icon>
+                                <span>{{b.event_date | date:'mediumDate'}} at {{b.event_time || '10:00 AM'}}</span>
+                            </div>
+                            <div class="info-row">
+                                <mat-icon>location_on</mat-icon>
+                                <span>{{b.event_venue}}</span>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="qr-preview" *ngIf="b.qr">
-                        <img [src]="b.qr" alt="Ticket QR">
+                    <div class="ticket-stats">
+                        <div class="stat-pill">
+                            <span class="label">TICKETS</span>
+                            <span class="val">{{b.tickets_booked}}</span>
+                        </div>
+                        <div class="stat-pill">
+                            <span class="label">TOTAL PAID</span>
+                            <span class="val">{{b.total_price | currency:'INR':'symbol-narrow'}}</span>
+                        </div>
                     </div>
 
-                    <div class="actions">
-                        <button mat-flat-button color="accent" [routerLink]="['/booking', b.id]">View Full
-                            Ticket</button>
+                    <div class="card-actions-premium">
+                        <button mat-raised-button color="primary" class="view-btn" [routerLink]="['/booking', b.id]">
+                            <mat-icon>qr_code_2</mat-icon>
+                            View Pass
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
 
         <ng-template #emptyState>
-            <div class="empty-state">
-                <mat-icon>event_busy</mat-icon>
-                <h2>No Bookings Yet</h2>
-                <p>Looks like you haven't booked any events yet. Explore top events and start your journey!</p>
-                <button mat-raised-button color="primary" routerLink="/events">Explore Events</button>
+            <div class="empty-state-card shadow-3d">
+                <div class="empty-icon-circle">
+                    <mat-icon>event_available</mat-icon>
+                </div>
+                <h2>Ready for your next adventure?</h2>
+                <p>Your ticket collection is empty. Explore the best events happening around you and book your spot!</p>
+                <button mat-raised-button color="primary" class="explore-btn" routerLink="/events">
+                    Browse Trending Events
+                </button>
             </div>
         </ng-template>
     </div>

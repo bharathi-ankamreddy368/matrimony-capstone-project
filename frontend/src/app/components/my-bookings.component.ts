@@ -9,5 +9,12 @@ import { BookingService } from '../services/booking.service';
 export class MyBookingsComponent implements OnInit {
   bookings: any[] = [];
   constructor(private bookingService: BookingService) { }
-  ngOnInit() { this.bookingService.getMyBookings().subscribe(b => this.bookings = b); }
+  ngOnInit() {
+    this.bookingService.getMyBookings().subscribe(b => this.bookings = b);
+  }
+
+  isUpcoming(date: string): boolean {
+    if (!date) return false;
+    return new Date(date) > new Date();
+  }
 }

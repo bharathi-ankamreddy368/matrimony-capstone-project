@@ -1,133 +1,378 @@
-.confirmation-container {
-    min-height: calc(100vh - 80px);
-    background: var(--bg-secondary);
+.confirmation-container-wrapper {
+    min-height: 100vh;
+    background-color: var(--bg-secondary);
+    position: relative;
+    overflow: hidden;
+    padding: 6rem 1rem;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 6rem 2rem;
 }
 
-.simple-ticket {
-    max-width: 500px;
-    width: 100%;
-    background: white;
-    padding: 0;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
-    overflow: hidden;
+/* Dashboard Style Background Blobs */
+.sidebar-blob {
+    position: absolute;
+    top: -5%;
+    right: -10%;
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(var(--primary-rgb), 0.08) 0%, transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.sidebar-blob-bottom {
+    position: absolute;
+    bottom: -10%;
+    left: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(var(--secondary-rgb), 0.06) 0%, transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.confirmation-content {
     position: relative;
-
-    &::before,
-    &::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        width: 40px;
-        height: 40px;
-        background: var(--bg-secondary);
-        border-radius: 50%;
-        z-index: 10;
-        margin-top: -20px;
-    }
-
-    &::before {
-        left: -20px;
-    }
-
-    &::after {
-        right: -20px;
-    }
+    z-index: 10;
+    width: 100%;
+    max-width: 900px;
+    animation: fadeInUp 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-.ticket-header {
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-    padding: 3rem;
-    color: white;
+.success-header {
     text-align: center;
+    margin-bottom: 4rem;
 
-    .confirm-title {
-        font-size: 2.2rem;
-        font-weight: 800;
-        margin-bottom: 0.5rem;
-        color: white;
+    .check-box {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, var(--success-color), #00c853);
+        border-radius: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 2rem;
+        box-shadow: 0 15px 35px rgba(0, 200, 83, 0.3);
+        transform: rotate(-10deg);
+        animation: checkBounce 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+        mat-icon {
+            color: white;
+            font-size: 48px;
+            width: 48px;
+            height: 48px;
+        }
+    }
+
+    h1.text-gradient {
+        font-size: 3.5rem;
+        font-weight: 950;
+        letter-spacing: -3px;
+        margin-bottom: 1rem;
     }
 
     p {
-        opacity: 0.9;
+        font-size: 1.25rem;
+        color: var(--text-secondary);
         font-weight: 500;
     }
 }
 
-.confirm-details {
-    padding: 3rem;
-    border-bottom: 2px dashed var(--border-color);
-}
-
-.detail-row {
+/* Premium 3D Split Ticket */
+.premium-ticket {
+    background: white;
+    border-radius: 32px;
     display: flex;
-    justify-content: space-between;
-    padding: 1rem 0;
-    border-bottom: 1px solid var(--border-color);
+    overflow: hidden;
+    position: relative;
+    box-shadow:
+        0 30px 60px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    perspective: 1000px;
 
-    &:last-child {
-        border-bottom: none;
-    }
-
-    .label {
-        font-weight: 700;
-        color: var(--text-muted);
-        text-transform: uppercase;
-        font-size: 0.8rem;
-        letter-spacing: 0.5px;
-    }
-
-    .value {
-        font-weight: 800;
-        color: var(--text-main);
-        font-size: 1.1rem;
+    &:hover {
+        transform: translateY(-10px) rotateX(2deg);
+        box-shadow: 0 40px 80px rgba(0, 0, 0, 0.15);
     }
 }
 
-.qr-section {
-    padding: 3rem;
-    text-align: center;
-    background: #fafafa;
+.ticket-left {
+    flex: 1;
+    padding: 4rem;
+    background: linear-gradient(145deg, #ffffff, #f8f9fa);
+    position: relative;
 
-    .qr-label {
-        font-weight: 800;
-        color: var(--text-muted);
-        text-transform: uppercase;
-        font-size: 0.8rem;
+    .ticket-type {
+        font-size: 0.9rem;
+        font-weight: 900;
+        color: var(--primary-color);
+        letter-spacing: 3px;
         margin-bottom: 1.5rem;
-        display: block;
     }
 
-    .qr-wrapper {
-        background: white;
-        padding: 2rem;
-        border-radius: var(--radius-md);
-        display: inline-block;
-        box-shadow: var(--shadow-sm);
-        border: 1px solid var(--border-color);
+    .event-name {
+        font-size: 2.2rem;
+        font-weight: 900;
+        color: var(--text-main);
+        letter-spacing: -1px;
+        line-height: 1.2;
+        margin-bottom: 3rem;
+    }
+}
 
-        .qr-img {
-            width: 180px;
-            height: 180px;
-            object-fit: contain;
+.ticket-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+
+    .info-item {
+        .label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            letter-spacing: 1.5px;
+        }
+
+        .value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
         }
     }
 }
 
-.action-buttons {
+.venue-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 1.5rem;
+    background: rgba(var(--primary-rgb), 0.05);
+    border-radius: 16px;
+    color: var(--text-secondary);
+    font-weight: 600;
+
+    mat-icon {
+        color: var(--primary-color);
+    }
+}
+
+.ticket-divider {
+    width: 2px;
+    background: transparent;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .dashed-line {
+        flex: 1;
+        width: 0;
+        border-left: 2px dashed #e2e8f0;
+    }
+
+    .notch {
+        width: 40px;
+        height: 40px;
+        background: var(--bg-secondary);
+        border-radius: 50%;
+        position: absolute;
+        box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+
+        &.top {
+            top: -20px;
+        }
+
+        &.bottom {
+            bottom: -20px;
+        }
+    }
+}
+
+.ticket-right {
+    width: 320px;
+    background: linear-gradient(145deg, #f8fafc, #ffffff);
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.qr-scan-box {
+    width: 180px;
+    height: 180px;
+    background: white;
+    padding: 15px;
+    position: relative;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+
+    .qr-code-img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .corner {
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        border: 4px solid var(--primary-color);
+        animation: scanCorners 2s infinite ease-in-out;
+
+        &.top-left {
+            top: -5px;
+            left: -5px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        &.top-right {
+            top: -5px;
+            right: -5px;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        &.bottom-left {
+            bottom: -5px;
+            left: -5px;
+            border-right: none;
+            border-top: none;
+        }
+
+        &.bottom-right {
+            bottom: -5px;
+            right: -5px;
+            border-left: none;
+            border-top: none;
+        }
+    }
+}
+
+.scan-label {
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+}
+
+/* Action Bar */
+.action-bar-premium {
     margin-top: 4rem;
     display: flex;
-    gap: 1.5rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
 
-    button {
-        height: 56px !important;
-        padding: 0 32px !important;
+    .download-btn {
+        height: 64px !important;
+        padding: 0 4rem !important;
         border-radius: var(--radius-pill) !important;
-        font-weight: 800 !important;
+        font-size: 1.25rem !important;
+        font-weight: 900 !important;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+        box-shadow: 0 15px 35px var(--primary-glow) !important;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+
+        &:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 25px 50px var(--primary-glow) !important;
+        }
+
+        mat-icon {
+            margin-right: 12px;
+        }
+    }
+
+    .secondary-actions {
+        display: flex;
+        gap: 2rem;
+
+        button {
+            font-weight: 700 !important;
+            color: var(--text-secondary) !important;
+
+            &:hover {
+                color: var(--primary-color) !important;
+            }
+        }
+    }
+}
+
+@keyframes scanCorners {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(0.9);
+        opacity: 0.6;
+    }
+}
+
+@keyframes checkBounce {
+    0% {
+        transform: scale(0) rotate(-45deg);
+        opacity: 0;
+    }
+
+    70% {
+        transform: scale(1.2) rotate(-10deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(-10deg);
+        opacity: 1;
+    }
+}
+
+@media (max-width: 850px) {
+    .premium-ticket {
+        flex-direction: column;
+    }
+
+    .ticket-right {
+        width: 100%;
+        padding: 4rem 2rem;
+    }
+
+    .ticket-divider {
+        width: 100%;
+        height: 2px;
+        flex-direction: row;
+
+        .dashed-line {
+            width: 100%;
+            height: 0;
+            border-top: 2px dashed #e2e8f0;
+            border-left: none;
+        }
+
+        .notch {
+            &.top {
+                left: -20px;
+                top: -20px;
+            }
+
+            &.bottom {
+                right: -20px;
+                bottom: -20px;
+            }
+        }
+    }
+
+    .success-header h1.text-gradient {
+        font-size: 2.5rem;
     }
 }

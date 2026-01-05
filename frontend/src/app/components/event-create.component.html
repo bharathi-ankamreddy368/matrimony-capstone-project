@@ -1,97 +1,119 @@
 <div class="create-container">
-    <mat-card class="create-card">
-        <header class="card-header">
-            <h1 class="text-gradient">Create New Event</h1>
-            <p>Fill in the details below to host your event.</p>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <div class="glass-form-card shadow-lg container">
+        <header class="form-header">
+            <div class="icon-circle"><mat-icon>auto_awesome</mat-icon></div>
+            <h1 class="text-gradient">Launch Your Event</h1>
+            <p>Define the details and invite your audience to something special.</p>
         </header>
 
         <form [formGroup]="form" (ngSubmit)="submit()">
-            <div class="form-grid">
-                <div class="row-2">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Event Name</mat-label>
-                        <input matInput formControlName="name" placeholder="e.g. Summer Music Festival">
-                        <mat-icon matSuffix>event</mat-icon>
-                    </mat-form-field>
+            <div class="form-sections">
+                <!-- Section 1: Essentials -->
+                <div class="form-section">
+                    <h3 class="section-title"><mat-icon>info</mat-icon> Essential Details</h3>
+                    <div class="form-grid-row">
+                        <mat-form-field appearance="outline" class="flex-2">
+                            <mat-label>Event Title</mat-label>
+                            <input matInput formControlName="name" placeholder="Give your event a catchy name">
+                        </mat-form-field>
 
-                    <mat-form-field appearance="outline">
-                        <mat-label>Category</mat-label>
-                        <mat-select formControlName="category">
-                            <mat-option value="Music">Music</mat-option>
-                            <mat-option value="Technology">Technology</mat-option>
-                            <mat-option value="Workshop">Workshop</mat-option>
-                            <mat-option value="Conference">Conference</mat-option>
-                            <mat-option value="Travel">Travel</mat-option>
-                            <mat-option value="Health">Health</mat-option>
-                            <mat-option value="Food">Food</mat-option>
-                            <mat-option value="Art">Art</mat-option>
-                            <mat-option value="Other">Other</mat-option>
-                        </mat-select>
-                        <mat-icon matSuffix>category</mat-icon>
-                    </mat-form-field>
-                </div>
+                        <mat-form-field appearance="outline" class="flex-1">
+                            <mat-label>Category</mat-label>
+                            <mat-select formControlName="category">
+                                <mat-option
+                                    *ngFor="let cat of ['Music', 'Technology', 'Workshop', 'Conference', 'Travel', 'Health', 'Food', 'Art', 'Other']"
+                                    [value]="cat">
+                                    {{cat}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
 
-                <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Description</mat-label>
-                    <textarea matInput formControlName="description" rows="4"
-                        placeholder="Tell people what your event is about..."></textarea>
-                </mat-form-field>
-
-                <div class="row-2">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Venue / Location</mat-label>
-                        <input matInput formControlName="venue" placeholder="e.g. Grand Plaza, Downtown">
-                        <mat-icon matSuffix>location_on</mat-icon>
-                    </mat-form-field>
-
-                    <mat-form-field appearance="outline">
-                        <mat-label>Date & Time</mat-label>
-                        <input matInput type="datetime-local" formControlName="date_time">
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Story / Description</mat-label>
+                        <textarea matInput formControlName="description" rows="5"
+                            placeholder="Share the vision behind your event..."></textarea>
                     </mat-form-field>
                 </div>
 
-                <div class="row-2">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Capacity</mat-label>
-                        <input matInput type="number" formControlName="capacity" min="1">
-                        <mat-icon matSuffix>people</mat-icon>
-                    </mat-form-field>
+                <!-- Section 2: Logistics -->
+                <div class="form-section">
+                    <h3 class="section-title"><mat-icon>place</mat-icon> Logistics & Timing</h3>
+                    <div class="form-grid-row">
+                        <mat-form-field appearance="outline" class="flex-1">
+                            <mat-label>Venue & Location</mat-label>
+                            <input matInput formControlName="venue" placeholder="Where is it happening?">
+                        </mat-form-field>
 
-                    <mat-form-field appearance="outline">
-                        <mat-label>Ticket Price (₹)</mat-label>
-                        <input matInput type="number" formControlName="ticket_price" min="0">
-                        <span matPrefix>₹&nbsp;</span>
-                    </mat-form-field>
+                        <mat-form-field appearance="outline" class="flex-1">
+                            <mat-label>Date & Event Start</mat-label>
+                            <input matInput type="datetime-local" formControlName="date_time">
+                        </mat-form-field>
+                    </div>
                 </div>
 
-                <div class="media-section">
-                    <span class="file-label">Event Banner</span>
-                    <div class="file-input-wrapper">
+                <!-- Section 3: Ticketing -->
+                <div class="form-section">
+                    <h3 class="section-title"><mat-icon>confirmation_number</mat-icon> Ticketing & Capacity</h3>
+                    <div class="form-grid-row">
+                        <mat-form-field appearance="outline" class="flex-1">
+                            <mat-label>Guest Capacity</mat-label>
+                            <input matInput type="number" formControlName="capacity" min="1">
+                            <mat-icon matSuffix>group_add</mat-icon>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="flex-1">
+                            <mat-label>Ticket Price (₹)</mat-label>
+                            <input matInput type="number" formControlName="ticket_price" min="0">
+                            <span matPrefix>₹&nbsp;</span>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- Section 4: Media -->
+                <div class="form-section no-border">
+                    <h3 class="section-title"><mat-icon>image</mat-icon> Event Media</h3>
+                    <div class="upload-zone" [class.has-file]="preview">
                         <input type="file" (change)="onFile($event)" accept="image/*" style="display: none" #fileRef>
-                        <button mat-stroked-button type="button" (click)="fileRef.click()" color="primary">
-                            <mat-icon>cloud_upload</mat-icon> Upload Image
-                        </button>
+
+                        <div class="upload-content" *ngIf="!preview" (click)="fileRef.click()">
+                            <mat-icon class="upload-icon">cloud_upload</mat-icon>
+                            <p>Drag and drop your event banner or <span>browse files</span></p>
+                            <span class="hint">Recommended: 1200 x 600px (JPG/PNG)</span>
+                        </div>
+
+                        <div class="preview-container" *ngIf="preview">
+                            <img [src]="preview" alt="Event Banner">
+                            <div class="preview-overlay">
+                                <button mat-mini-fab color="warn" (click)="preview = null" type="button">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                                <button mat-mini-fab color="primary" (click)="fileRef.click()" type="button">
+                                    <mat-icon>sync</mat-icon>
+                                </button>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="image-preview" *ngIf="preview">
-                        <img [src]="preview" alt="Event Preview">
-                        <button mat-icon-button class="remove-btn" type="button" (click)="preview = null">
-                            <mat-icon>close</mat-icon>
-                        </button>
-                    </div>
-                </div>
-
-                <div *ngIf="progress !== null" style="margin-top: 2rem">
-                    <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
-                </div>
-
-                <div class="form-actions">
-                    <button mat-button type="button" (click)="cancel()">Cancel</button>
-                    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || submitting">
-                        {{ submitting ? 'Processing...' : 'Create Event' }}
-                    </button>
                 </div>
             </div>
+
+            <div *ngIf="progress !== null" class="upload-progress">
+                <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+                <span>Uploading artwork: {{progress}}%</span>
+            </div>
+
+            <div class="form-actions-v2">
+                <button mat-button type="button" class="cancel-btn" (click)="cancel()">Exit Editor</button>
+                <button mat-raised-button color="primary" type="submit" class="submit-btn"
+                    [disabled]="form.invalid || submitting">
+                    {{ submitting ? 'Deploying Event...' : 'Launch Event' }}
+                </button>
+            </div>
         </form>
-    </mat-card>
+    </div>
 </div>

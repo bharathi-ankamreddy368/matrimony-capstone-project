@@ -26,7 +26,7 @@ router.post('/login', loginValidators, validateRequest, async (req: Request, res
   if (!username || !password) return res.status(400).json({ error: 'username and password required' });
   const user = await userModel.findUserByUsername(username);
   if (!user) return res.status(401).json({ error: 'Invalid credentials' });
-  const ok = await bcrypt.compare(password, user.password_hash);
+  const ok = await bcrypt.compare(password, user.password);
   if (!ok) return res.status(401).json({ error: 'Invalid credentials' });
 
   const secret = process.env.JWT_SECRET || 'capstone_secret_key';

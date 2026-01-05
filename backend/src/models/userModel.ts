@@ -5,14 +5,14 @@ import { RowDataPacket, ResultSetHeader } from 'mysql2';
 export interface UserRow extends RowDataPacket {
   id: number;
   username: string;
-  password_hash: string;
+  password: string;
   role: 'organizer' | 'attendee' | 'admin';
   created_at?: string;
 }
 
 export const createUser = async (username: string, password_hash: string, role: 'organizer' | 'attendee' | 'admin' = 'attendee') => {
   const [result] = await pool.query<ResultSetHeader>(
-    `INSERT INTO users (username, password_hash, role) VALUES (?, ?, ?)`,
+    `INSERT INTO users (username, password, role) VALUES (?, ?, ?)`,
     [username, password_hash, role]
   );
   return {
